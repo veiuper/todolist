@@ -3,52 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <title>Todolist</title>
-    <link rel="stylesheet" type="text/css" href="/css/style.x63573.css"/>
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <style>
+        .all-entry {
+            border-collapse: collapse;
+            counter-reset: counter-tr;
+        }
+        .all-entry tbody tr:nth-child(n+2) {
+            counter-increment: counter-tr;
+        }
+        .all-entry td,
+        .all-entry tr:before {
+            padding: 2px;
+            border: 1px solid black;
+        }
+        .all-entry tbody tr:before {
+            display: table-cell;
+            vertical-align: middle;
+        }
+        .all-entry tbody tr:before,
+        .all-entry b:after {
+            content: counter(counter-tr);
+        }
+        .all-entry tbody tr:nth-child(-n+1):before {
+            content: "№";
+        }
+    </style>
 </head>
 <body>
 <h1>Todolist</h1>
 <h3>Add task to list</h3>
 <form action="/add" method="post">
-    <table border="1px">
+    <table class="add-entry">
         <tr>
             <td>
-                <label>Priority</label>
-                <input type="number" name="priorityId">
-            </td>
-            <td>
                 <label>Description</label>
-                <input type="text" name="description">
+                <label>
+                    <input type="text" name="description">
+                </label>
             </td>
             <td>
-                <label>Date</label>
-                <input type="date" name="date">
+                <input type="submit" value="Add task">
             </td>
-
-            <td>
-                <input type="submit" value="add task">
-            </td>
-
         </tr>
-
     </table>
 </form>
 <br>
-<h2>Task list(task count : ${taskSize})</h2>
-<table border="1px">
+<h2><#-- @ftlvariable name="taskSize" type="java.lang.Number" -->
+Task list (task count : ${taskSize})</h2>
+<table class="all-entry">
     <tr>
-        <td>Id</td>
-        <td>Priority</td>
         <td>Task description</td>
-        <td>Date</td>
-        <td>Delete from list</td>
+        <td>Change the execution status</td>
+        <td>Delete</td>
     </tr>
     <#list taskList as task>
         <tr>
-            <td>${task.id}</td>
-            <td>${task.priorityId}</td>
             <td>${task.description}</td>
-            <td>${task.date}</td>
-            <td><a href="${'/delete/'+task.id}">Delete</a></td>
+            <td><a href="${'/reversTaskStatus/'+task.id}">execute</a></td>
+            <td><a href="${'/delete/'+task.id}">delete</a></td>
         </tr>
     </#list>
 </table>

@@ -1,10 +1,7 @@
 package com.veiuper.todolist.model;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
-import java.util.Date;
-
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Task {
@@ -12,35 +9,31 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false, updatable = false)
     private Long id;
-    private Integer priorityId;
+    @Column(nullable = false, columnDefinition = "boolean default false")
+    private Boolean executed = false;
+    @NotBlank(message="{task.description.invalid}")
+    @Column(columnDefinition = "varchar(255)")
     private String description;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date date;
 
     public Task() {
     }
 
-    public Task(Long id, Integer priorityId, String description, Date date) {
+    public Task(Long id, Boolean executed, String description) {
         this.id = id;
-        this.priorityId = priorityId;
+        this.executed = executed;
         this.description = description;
-        this.date = date;
     }
 
     public Long getId() {
         return id;
     }
 
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
-
-    public Integer getPriorityId() {
-        return priorityId;
+    public Boolean getStatus() {
+        return executed;
     }
 
-    public void setPriorityId(Integer priorityId) {
-        this.priorityId = priorityId;
+    public void setStatus(Boolean executed) {
+        this.executed = executed;
     }
 
     public String getDescription() {
@@ -49,13 +42,5 @@ public class Task {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 }

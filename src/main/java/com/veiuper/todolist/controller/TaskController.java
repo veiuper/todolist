@@ -24,7 +24,7 @@ public class TaskController {
     }
 
     @RequestMapping("/delete/{id}")
-    public String deleteTask(@PathVariable int id) {
+    public String deleteTask(@PathVariable long id) {
         taskService.delete(id);
         return "redirect:/";
     }
@@ -32,6 +32,12 @@ public class TaskController {
     @RequestMapping("/delete")
     public String deleteAll() {
         taskService.deleteAll();
+        return "redirect:/";
+    }
+
+    @RequestMapping("/reversTaskStatus/{id}")
+    public String reversTaskStatus(@PathVariable long id) throws Exception {
+        taskService.reversTaskStatus(id);
         return "redirect:/";
     }
 
