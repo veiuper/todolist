@@ -33,24 +33,22 @@
     </table>
 </form>
 <br>
-<h2>Task list(task count : ${taskSize})</h2>
+<h2 th:text="'Task list(task count : ' + ${taskSize} + ')'"></h2>
 <table border="1px">
     <tr>
-        <td>Id</td>
-        <td>Priority</td>
-        <td>Task description</td>
-        <td>Date</td>
-        <td>Delete from list</td>
+        <th>Id</th>
+        <th>Priority</th>
+        <th>Task description</th>
+        <th>Date</th>
+        <th>Delete from list</th>
     </tr>
-    <#list taskList as task>
-        <tr>
-            <td>${task.id}</td>
-            <td>${task.priorityId}</td>
-            <td>${task.description}</td>
-            <td>${task.date}</td>
-            <td><a href="${'/delete/'+task.id}">Delete</a></td>
-        </tr>
-    </#list>
+    <tr th:each="task : ${taskList}">
+        <td th:text="${task.id}"></td>
+        <td th:text="${task.priorityId}"></td>
+        <td th:text="${task.description}"></td>
+        <td th:text="${task.date}"></td>
+        <td><a th:href="@{/delete/{id}(id=${task.id})}">Delete</a></td>
+    </tr>
 </table>
 </body>
 </html>
