@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Todolist</title>
@@ -61,9 +61,9 @@ Task list (task count : ${taskSize})</h2>
     <#list taskList as task>
         <tr>
             <td>${task.description}</td>
-            <td><a href="${'/reversTaskStatus/'+task.id}">executed</a></td>
+            <td><a href="${'/reversTaskStatus/'+task.id}">${task.executed?string('unexecuted', 'executed')}</a></td>
             <td><a href="${'/delete/'+task.id}">delete</a></td>
-            <td th:text="${task.executed?string('true', 'false')}  == 'true' ? 'true' : 'false'"></td>
+            <td>${task.executed?string('unexecuted', 'executed')}</td>
 <#--            <td>-->
 <#--                <span th:if="${task.executed == true}">ACTIVE</span>-->
 <#--                <span th:unless="${task.executed == false}">RETIRED</span>-->
