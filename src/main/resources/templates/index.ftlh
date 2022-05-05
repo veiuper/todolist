@@ -56,18 +56,12 @@ Task list (task count : ${taskSize})</h2>
         <td>Task description</td>
         <td>Change the execution status</td>
         <td>Delete</td>
-<#--        <td>Test</td>-->
     </tr>
     <#list taskList as task>
         <tr>
             <td>${task.description}</td>
             <td><a href="${'/reversTaskStatus/'+task.id}">${task.executed?string('unexecuted', 'executed')}</a></td>
             <td><a href="${'/delete/'+task.id}">delete</a></td>
-            <td>${task.executed?string('unexecuted', 'executed')}</td>
-<#--            <td>-->
-<#--                <span th:if="${task.executed == true}">ACTIVE</span>-->
-<#--                <span th:unless="${task.executed == false}">RETIRED</span>-->
-<#--            </td>-->
         </tr>
     </#list>
 </table>
