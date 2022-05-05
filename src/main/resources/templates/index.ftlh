@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Organizer</title>
+    <title>Todolist</title>
     <link rel="stylesheet" type="text/css" href="/css/style.x63573.css"/>
 </head>
 <body>
-<h1>Organizer</h1>
+<h1>Todolist</h1>
 <h3>Add task to list</h3>
 <form action="/add" method="post">
     <table border="1px">
@@ -48,7 +48,7 @@
             <td>${task.priorityId}</td>
             <td>${task.description}</td>
             <td>${task.date}</td>
-            <td><a href="${'/delete/'+task.id}"">Delete</a></td>
+            <td><a href="${'/delete/'+task.id}">Delete</a></td>
         </tr>
     </#list>
 </table>
