@@ -28,7 +28,7 @@ public class Task {
         return id;
     }
 
-    public Boolean getStatus() {
+    public Boolean getExecuted() {
         return executed;
     }
 

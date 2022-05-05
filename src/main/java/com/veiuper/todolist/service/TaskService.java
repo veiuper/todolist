@@ -28,7 +28,7 @@ public class TaskService {
             throw new Exception();
         }
         Task task = optionalTask.get();
-        task.setStatus(!task.getStatus());
+        task.setStatus(!task.getExecuted());
         taskRepository.save(task);
     }
 
