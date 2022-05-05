@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Todolist</title>
@@ -56,12 +56,18 @@ Task list (task count : ${taskSize})</h2>
         <td>Task description</td>
         <td>Change the execution status</td>
         <td>Delete</td>
+<#--        <td>Test</td>-->
     </tr>
     <#list taskList as task>
         <tr>
             <td>${task.description}</td>
-            <td><a href="${'/reversTaskStatus/'+task.id}">execute</a></td>
+            <td><a href="${'/reversTaskStatus/'+task.id}">executed</a></td>
             <td><a href="${'/delete/'+task.id}">delete</a></td>
+<#--            <td th:text="${task.executed?string('true', 'false')}  == 'true' ? 'true' : 'false'"></td>-->
+<#--            <td>-->
+<#--                <span th:if="${task.executed == true}">ACTIVE</span>-->
+<#--                <span th:unless="${task.executed == false}">RETIRED</span>-->
+<#--            </td>-->
         </tr>
     </#list>
 </table>
