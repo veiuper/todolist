@@ -32,30 +32,30 @@
 </head>
 <body>
 <h1>Todolist</h1>
-<h3>Add task to list</h3>
+<h3>Добавление задачи в список</h3>
 <form action="/add" method="post">
     <table class="add-entry">
         <tr>
             <td>
-                <label>Description</label>
+                <label>Описание</label>
                 <label>
                     <input type="text" name="description">
                 </label>
             </td>
             <td>
-                <input type="submit" value="Add task">
+                <input type="submit" value="Добавить">
             </td>
         </tr>
     </table>
 </form>
 <br>
 <h2><#-- @ftlvariable name="taskSize" type="java.lang.Number" -->
-Task list (task count : ${taskSize})</h2>
+Список задач (количество : ${taskSize})</h2>
 <table class="all-entry">
     <tr>
-        <td>Task description</td>
-        <td>Change the execution status</td>
-        <td>Delete</td>
+        <td>Описание</td>
+        <td>Изменение статуса выполнения</td>
+        <td>Удаление</td>
     </tr>
     <#list taskList as task>
         <tr>
