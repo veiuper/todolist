@@ -5,28 +5,16 @@
     <title>Todolist</title>
     <link href="/css/style.css" rel="stylesheet" type="text/css">
     <style>
-        .all-entry {
-            border-collapse: collapse;
-            counter-reset: counter-tr;
+        table.numbered-table {
+            counter-reset: rowNumber;
         }
-        .all-entry tbody tr:nth-child(n+2) {
-            counter-increment: counter-tr;
+
+        table.numbered-table tbody tr:not(.table-header) {
+            counter-increment: rowNumber;
         }
-        .all-entry td,
-        .all-entry tr:before {
-            padding: 2px;
-            border: 1px solid black;
-        }
-        .all-entry tbody tr:before {
-            display: table-cell;
-            vertical-align: middle;
-        }
-        .all-entry tbody tr:before,
-        .all-entry b:after {
-            content: counter(counter-tr);
-        }
-        .all-entry tbody tr:nth-child(-n+1):before {
-            content: "№";
+
+        table.numbered-table tr td:first-child::before {
+            content: counter(rowNumber);
         }
     </style>
 </head>
@@ -34,7 +22,7 @@
 <h1>Todolist</h1>
 <h3>Добавление задачи в список</h3>
 <form action="/add" method="post">
-    <table class="add-entry">
+    <table>
         <tr>
             <td>
                 <label>Описание</label>
@@ -49,16 +37,17 @@
     </table>
 </form>
 <br>
-<h2><#-- @ftlvariable name="taskSize" type="java.lang.Number" -->
-Список задач (количество : ${taskSize})</h2>
-<table class="all-entry">
-    <tr>
-        <td>Описание</td>
-        <td>Изменение статуса выполнения</td>
-        <td>Удаление</td>
+<h2>Список задач (количество : ${taskSize})</h2>
+<table class="numbered-table">
+    <tr class="table-header">
+        <th>№</th>
+        <th>Описание</th>
+        <th>Изменение статуса выполнения</th>
+        <th>Удаление</th>
     </tr>
     <#list taskList as task>
         <tr>
+            <td></td>
             <td <#if task.executed> style="text-decoration: line-through;"</#if>>${task.description}</td>
             <td><a href="${'/reversTaskStatus/'+task.id}"><#if task.executed>Отменить выполнение<#else>Выполнить</#if></a></td>
             <td><a href="${'/delete/'+task.id}">Удалить</a></td>
