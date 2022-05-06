@@ -4,36 +4,25 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-public class Task {
+public class Tasklist {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false, updatable = false)
     private Long id;
-    @Column(nullable = false, columnDefinition = "boolean default false")
-    private Boolean executed = false;
-    @NotBlank(message="{task.description.invalid}")
+    @NotBlank(message="{tasklist.description.invalid}")
     @Column(columnDefinition = "varchar(255)")
     private String description;
 
-    public Task() {
+    public Tasklist() {
     }
 
-    public Task(Long id, Boolean executed, @NotBlank(message = "{task.description.invalid}") String description) {
+    public Tasklist(Long id, @NotBlank(message = "{tasklist.description.invalid}") String description) {
         this.id = id;
-        this.executed = executed;
         this.description = description;
     }
 
     public Long getId() {
         return id;
-    }
-
-    public Boolean getExecuted() {
-        return executed;
-    }
-
-    public void setStatus(Boolean executed) {
-        this.executed = executed;
     }
 
     public String getDescription() {
