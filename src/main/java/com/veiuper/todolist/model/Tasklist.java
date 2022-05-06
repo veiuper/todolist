@@ -2,8 +2,10 @@ package com.veiuper.todolist.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 @Entity
+@Table(name = "tasklist")
 public class Tasklist {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -12,6 +14,8 @@ public class Tasklist {
     @NotBlank(message="{tasklist.description.invalid}")
     @Column(columnDefinition = "varchar(255)")
     private String description;
+    @OneToMany(mappedBy = "tasklist")
+    private List<Task> tasks;
 
     public Tasklist() {
     }

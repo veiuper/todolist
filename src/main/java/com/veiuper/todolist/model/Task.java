@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Entity
+@Table(name = "task")
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -14,12 +15,15 @@ public class Task {
     @NotBlank(message="{task.description.invalid}")
     @Column(columnDefinition = "varchar(255)")
     private String description;
+    @ManyToOne()
+    private Tasklist tasklist;
 
     public Task() {
     }
 
-    public Task(Long id, Boolean executed, @NotBlank(message = "{task.description.invalid}") String description) {
+    public Task(Long id, Tasklist tasklist, Boolean executed, @NotBlank(message = "{task.description.invalid}") String description) {
         this.id = id;
+        this.tasklist = tasklist;
         this.executed = executed;
         this.description = description;
     }
@@ -42,5 +46,13 @@ public class Task {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Tasklist getTasklist() {
+        return tasklist;
+    }
+
+    public void setTasklist(Tasklist tasklist) {
+        this.tasklist = tasklist;
     }
 }
