@@ -8,11 +8,9 @@
         table.numbered-table {
             counter-reset: rowNumber;
         }
-
         table.numbered-table tbody tr:not(.table-header) {
             counter-increment: rowNumber;
         }
-
         table.numbered-table tr td:first-child::before {
             content: counter(rowNumber);
         }
@@ -37,7 +35,7 @@
     </table>
 </form>
 <br>
-<h2>Список задач (количество : ${taskSize})</h2>
+<h2><#-- @ftlvariable name="taskSize" type="java.lang.Number" -->Список задач (количество : ${taskSize})</h2>
 <table class="numbered-table">
     <tr class="table-header">
         <th>№</th>
