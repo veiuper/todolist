@@ -2,6 +2,7 @@ package com.veiuper.todolist.service;
 
 import com.veiuper.todolist.dao.TaskRepository;
 import com.veiuper.todolist.model.Task;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class TaskService {
     }
 
     public List<Task> getAll() {
-        return taskRepository.findAll();
+        return taskRepository.findAll(Sort.by("id"));
     }
 
     public Task save(Task task) {
