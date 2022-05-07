@@ -17,7 +17,7 @@ public class TaskService {
     }
 
     public List<Task> getAll() {
-        return taskRepository.findAll(Sort.by("id"));
+        return taskRepository.findAll(Sort.by(Sort.Order.asc("executed"), Sort.Order.asc("id")));
     }
 
     public Task save(Task task) {
