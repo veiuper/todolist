@@ -25,7 +25,7 @@ public class TaskService {
         return taskRepository.save(task);
     }
 
-    public void reversTaskStatus(long id) throws BusinessException {
+    public void switchTaskStatus(long id) throws BusinessException {
         Optional<Task> optionalTask = taskRepository.findById(id);
         if (optionalTask.isEmpty()) {
             throw new BusinessException(

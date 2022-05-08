@@ -36,9 +36,9 @@ public class TaskController {
         return "redirect:/";
     }
 
-    @RequestMapping("/reversTaskStatus/{id}")
-    public String reversTaskStatus(@PathVariable long id) throws Exception {
-        taskService.reversTaskStatus(id);
+    @RequestMapping("/switchTaskStatus/{id}")
+    public String switchTaskStatus(@PathVariable long id) throws Exception {
+        taskService.switchTaskStatus(id);
         return "redirect:/";
     }
 
