@@ -32,7 +32,7 @@ public class Task {
         return executed;
     }
 
-    public void setStatus(Boolean executed) {
+    public void setExecuted(Boolean executed) {
         this.executed = executed;
     }
 

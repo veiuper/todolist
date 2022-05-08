@@ -34,7 +34,7 @@ public class TaskService {
             );
         }
         Task task = optionalTask.get();
-        task.setStatus(!task.getExecuted());
+        task.setExecuted(!task.getExecuted());
         taskRepository.save(task);
     }
 
