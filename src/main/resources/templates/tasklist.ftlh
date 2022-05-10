@@ -46,7 +46,7 @@
     </tr>
     <#list taskList as task>
         <tr>
-            <td />
+            <td></td>
             <td <#if task.executed> style="text-decoration: line-through;"</#if>>${task.description}</td>
             <td><a href="${'/reversTaskStatus/'+task.id}"><#if task.executed>Отменить выполнение<#else>Выполнить</#if></a></td>
             <td><a href="${'/delete/'+task.id}">Удалить</a></td>

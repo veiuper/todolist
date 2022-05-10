@@ -45,7 +45,7 @@
     </tr>
     <#list tasklistList as tasklist>
         <tr>
-            <td />
+            <td></td>
             <td><a href="${'/tasklist/'+tasklist.id+'/tasks'}">${tasklist.description}</a></td>
             <td><a href="${'/delete/'+tasklist.id}">Удалить</a></td>
         </tr>
