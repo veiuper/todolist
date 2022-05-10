@@ -15,7 +15,7 @@ public class Task {
     @NotBlank(message="{task.description.invalid}")
     @Column(columnDefinition = "varchar(255)")
     private String description;
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.EAGER)
     private Tasklist tasklist;
 
     public Task() {
@@ -36,7 +36,7 @@ public class Task {
         return executed;
     }
 
-    public void setStatus(Boolean executed) {
+    public void setExecuted(Boolean executed) {
         this.executed = executed;
     }
 
