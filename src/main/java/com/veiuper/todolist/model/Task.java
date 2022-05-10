@@ -16,6 +16,7 @@ public class Task {
     @Column(columnDefinition = "varchar(255)")
     private String description;
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(nullable = false)
     private Tasklist tasklist;
 
     public Task() {
