@@ -6,6 +6,7 @@ import com.veiuper.todolist.model.TaskEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class TaskService {
@@ -44,6 +45,9 @@ public class TaskService {
         taskRepository.deleteById(id);
     }
 
+    public Set<TaskEntity> findByTasklistEntityIdOrderByExecutedAscIdAsc(Long tasklistEntityId) {
+        return taskRepository.findByTasklistEntityIdOrderByExecutedAscIdAsc(tasklistEntityId);
+    }
 //    public void deleteAll() {
 //        taskRepository.deleteAll();
 //    }
