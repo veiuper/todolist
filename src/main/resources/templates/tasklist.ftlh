@@ -49,7 +49,7 @@
             <td></td>
             <td <#if task.executed> style="text-decoration: line-through;"</#if>>${task.description}</td>
             <td><a href="${'/reversTaskStatus/'+task.id}"><#if task.executed>Отменить выполнение<#else>Выполнить</#if></a></td>
-            <td><a href="${'/delete/'+task.id}">Удалить</a></td>
+            <td><a href="${'/tasklist/'+tasklist.id+'/delete/'+task.id}">Удалить</a></td>
         </tr>
     </#list>
 </table>

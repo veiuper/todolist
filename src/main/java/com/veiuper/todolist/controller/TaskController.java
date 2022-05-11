@@ -6,10 +6,7 @@ import com.veiuper.todolist.service.TaskService;
 import com.veiuper.todolist.service.TasklistService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
@@ -23,9 +20,9 @@ public class TaskController {
         this.tasklistService = tasklistService;
     }
 
-    @GetMapping("/tasklist/{id}/tasks")
-    public String getAll(Model model, @PathVariable Long id) {
-        TasklistEntity tasklistEntity = tasklistService.getById(id);
+    @GetMapping("/tasklist/{tasklistId}/tasks")
+    public String getAll(Model model, @PathVariable Long tasklistId) {
+        TasklistEntity tasklistEntity = tasklistService.getById(tasklistId);
         Set<TaskEntity> taskEntityList = tasklistEntity.getTasks();
         model.addAttribute("tasklist", tasklistEntity);
         model.addAttribute("taskList", taskEntityList);
@@ -33,18 +30,18 @@ public class TaskController {
         return "tasklist";
     }
 
-    @PostMapping("/tasklist/{id}/add")
-    public String addTask(@ModelAttribute TaskEntity taskEntity, @PathVariable Long id) {
-        taskEntity.setTasklist(tasklistService.getById(id));
+    @PostMapping("/tasklist/{tasklistId}/add")
+    public String addTask(@ModelAttribute TaskEntity taskEntity, @PathVariable Long tasklistId) {
+        taskEntity.setTasklist(tasklistService.getById(tasklistId));
         taskService.save(taskEntity);
-        return "redirect:/tasklist/{id}/tasks";
+        return "redirect:/tasklist/{tasklistId}/tasks";
     }
-//    @RequestMapping("/tasklist/{id}/task/delete/{id}")
-//    public String deleteTask(@PathVariable Long id) {
-//        taskService.delete(id);
-//        return "tasklist";
-//    }
-//
+    @RequestMapping("/tasklist/{tasklistId}/delete/{taskId}")
+    public String deleteTask(@PathVariable String tasklistId, @PathVariable Long taskId) {
+        taskService.delete(taskId);
+        return "redirect:/tasklist/{tasklistId}/tasks";
+    }
+
 //    @RequestMapping("/tasklist/{id}/tasks/delete")
 //    public String deleteAll() {
 //        taskService.deleteAll();
