@@ -43,11 +43,11 @@
         <th>Описание</th>
         <th>Удаление</th>
     </tr>
-    <#list tasklistList as tasklistEntity>
+    <#list tasklistList as tasklist>
         <tr>
             <td></td>
-            <td><a href="${'/tasklist/'+tasklistEntity.id+'/tasks'}">${tasklistEntity.description}</a></td>
-            <td><a href="${'/delete/'+tasklistEntity.id}">Удалить</a></td>
+            <td><a href="${'/tasklist/'+tasklist.id+'/tasks'}">${tasklist.description}</a></td>
+            <td><a href="${'/delete/'+tasklist.id}">Удалить</a></td>
         </tr>
     </#list>
 </table>
