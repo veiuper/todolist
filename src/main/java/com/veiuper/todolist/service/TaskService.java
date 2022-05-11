@@ -2,7 +2,7 @@ package com.veiuper.todolist.service;
 
 import com.veiuper.todolist.dao.TaskRepository;
 import com.veiuper.todolist.exception.BusinessException;
-import com.veiuper.todolist.model.Task;
+import com.veiuper.todolist.model.TaskEntity;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -17,29 +17,29 @@ public class TaskService {
         this.taskRepository = taskRepository;
     }
 
-    public Task getById(Long id) {
+    public TaskEntity getById(Long id) {
         return taskRepository.getById(id);
     }
 
-    public List<Task> getAll() {
+    public List<TaskEntity> getAll() {
         return taskRepository.findAll(Sort.by(Sort.Order.asc("executed"), Sort.Order.asc("id")));
     }
 
-    public Task save(Task task) {
-        return taskRepository.save(task);
+    public TaskEntity save(TaskEntity taskEntity) {
+        return taskRepository.save(taskEntity);
     }
 
     public void switchTaskStatus(Long id) throws BusinessException {
-        Optional<Task> optionalTask = taskRepository.findById(id);
+        Optional<TaskEntity> optionalTask = taskRepository.findById(id);
         if (optionalTask.isEmpty()) {
             throw new BusinessException(
                     "Не удалось изменить статус выполнения задачи." + System.lineSeparator() +
                     "Задача с id " + id + " не найдена."
             );
         }
-        Task task = optionalTask.get();
-        task.setExecuted(!task.getExecuted());
-        taskRepository.save(task);
+        TaskEntity taskEntity = optionalTask.get();
+        taskEntity.setExecuted(!taskEntity.getExecuted());
+        taskRepository.save(taskEntity);
     }
 
     public void delete(Long id) {

@@ -5,7 +5,7 @@ import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "task")
-public class Task {
+public class TaskEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false, updatable = false)
@@ -17,14 +17,19 @@ public class Task {
     private String description;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(nullable = false)
-    private Tasklist tasklist;
+    private TasklistEntity tasklistEntity;
 
-    public Task() {
+    public TaskEntity() {
     }
 
-    public Task(Long id, Tasklist tasklist, Boolean executed, @NotBlank(message = "{task.description.invalid}") String description) {
+    public TaskEntity(
+            Long id,
+            TasklistEntity tasklistEntity,
+            Boolean executed,
+            @NotBlank(message = "{task.description.invalid}") String description
+    ) {
         this.id = id;
-        this.tasklist = tasklist;
+        this.tasklistEntity = tasklistEntity;
         this.executed = executed;
         this.description = description;
     }
@@ -49,11 +54,11 @@ public class Task {
         this.description = description;
     }
 
-    public Tasklist getTasklist() {
-        return tasklist;
+    public TasklistEntity getTasklist() {
+        return tasklistEntity;
     }
 
-    public void setTasklist(Tasklist tasklist) {
-        this.tasklist = tasklist;
+    public void setTasklist(TasklistEntity tasklistEntity) {
+        this.tasklistEntity = tasklistEntity;
     }
 }

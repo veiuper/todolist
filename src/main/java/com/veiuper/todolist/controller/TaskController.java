@@ -1,7 +1,7 @@
 package com.veiuper.todolist.controller;
 
-import com.veiuper.todolist.model.Task;
-import com.veiuper.todolist.model.Tasklist;
+import com.veiuper.todolist.model.TaskEntity;
+import com.veiuper.todolist.model.TasklistEntity;
 import com.veiuper.todolist.service.TaskService;
 import com.veiuper.todolist.service.TasklistService;
 import org.springframework.stereotype.Controller;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.List;
+import java.util.Set;
 
 @Controller
 public class TaskController {
@@ -25,17 +25,18 @@ public class TaskController {
 
     @GetMapping("/tasklist/{id}/tasks")
     public String getAll(Model model, @PathVariable Long id) {
-        Tasklist tasklist = tasklistService.getById(id);
-        List<Task> taskList = tasklist.getTasks();
-        model.addAttribute("tasklist", tasklist);
-        model.addAttribute("taskList", taskList);
-        model.addAttribute("taskSize", taskList.size());
+        TasklistEntity tasklistEntity = tasklistService.getById(id);
+        Set<TaskEntity> taskEntityList = tasklistEntity.getTasks();
+        model.addAttribute("tasklist", tasklistEntity);
+        model.addAttribute("taskList", taskEntityList);
+        model.addAttribute("taskSize", taskEntityList.size());
         return "tasklist";
     }
 
     @PostMapping("/tasklist/{id}/add")
-    public String addTask(@ModelAttribute Task task, @PathVariable Long id) {
-        taskService.save(task);
+    public String addTask(@ModelAttribute TaskEntity taskEntity, @PathVariable Long id) {
+        taskEntity.setTasklist(tasklistService.getById(id));
+        taskService.save(taskEntity);
         return "redirect:/tasklist/{id}/tasks";
     }
 //    @RequestMapping("/tasklist/{id}/task/delete/{id}")

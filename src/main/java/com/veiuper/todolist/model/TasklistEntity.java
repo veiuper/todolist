@@ -2,11 +2,11 @@ package com.veiuper.todolist.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "tasklist")
-public class Tasklist {
+public class TasklistEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false, updatable = false)
@@ -14,16 +14,20 @@ public class Tasklist {
     @NotBlank(message="{tasklist.description.invalid}")
     @Column(columnDefinition = "varchar(255)")
     private String description;
-    @OneToMany(mappedBy = "tasklist", fetch = FetchType.LAZY)
-    private List<Task> tasks;
+    @OneToMany(mappedBy = "tasklistEntity", fetch = FetchType.LAZY)
+    private Set<TaskEntity> taskEntities;
 
-    public Tasklist() {
+    public TasklistEntity() {
     }
 
-    public Tasklist(Long id, @NotBlank(message = "{tasklist.description.invalid}") String description, List<Task> tasks) {
+    public TasklistEntity(
+            Long id,
+            @NotBlank(message = "{tasklist.description.invalid}") String description,
+            Set<TaskEntity> taskEntities
+    ) {
         this.id = id;
         this.description = description;
-        this.tasks = tasks;
+        this.taskEntities = taskEntities;
     }
 
     public Long getId() {
@@ -38,11 +42,11 @@ public class Tasklist {
         this.description = description;
     }
 
-    public List<Task> getTasks() {
-        return tasks;
+    public Set<TaskEntity> getTasks() {
+        return taskEntities;
     }
 
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
+    public void setTasks(Set<TaskEntity> taskEntities) {
+        this.taskEntities = taskEntities;
     }
 }

@@ -1,7 +1,7 @@
 package com.veiuper.todolist.service;
 
 import com.veiuper.todolist.dao.TasklistRepository;
-import com.veiuper.todolist.model.Tasklist;
+import com.veiuper.todolist.model.TasklistEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,16 +14,16 @@ public class TasklistService {
         this.tasklistRepository = tasklistRepository;
     }
 
-    public List<Tasklist> getAll() {
+    public List<TasklistEntity> getAll() {
         return tasklistRepository.findAll();
     }
 
-    public Tasklist getById(Long id) {
+    public TasklistEntity getById(Long id) {
         return tasklistRepository.getById(id);
     }
 
-    public void save(Tasklist tasklist) {
-        tasklistRepository.save(tasklist);
+    public void save(TasklistEntity tasklistEntity) {
+        tasklistRepository.save(tasklistEntity);
     }
 
     public void delete(Long id) {

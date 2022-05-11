@@ -19,7 +19,7 @@
 <body>
 <h1>Todolist</h1>
 <h3>Добавление задачи в список</h3>
-<form action="/tasklist/${tasklist.id}/add" method="post">
+<form action="/tasklistEntity/${tasklist.id}/add" method="post">
     <table>
         <tr>
             <td>
@@ -44,12 +44,12 @@
         <th>Изменение статуса выполнения</th>
         <th>Удаление</th>
     </tr>
-    <#list taskList as task>
+    <#list taskList as taskEntity>
         <tr>
             <td></td>
-            <td <#if task.executed> style="text-decoration: line-through;"</#if>>${task.description}</td>
-            <td><a href="${'/reversTaskStatus/'+task.id}"><#if task.executed>Отменить выполнение<#else>Выполнить</#if></a></td>
-            <td><a href="${'/delete/'+task.id}">Удалить</a></td>
+            <td <#if taskEntity.executed> style="text-decoration: line-through;"</#if>>${taskEntity.description}</td>
+            <td><a href="${'/reversTaskStatus/'+taskEntity.id}"><#if taskEntity.executed>Отменить выполнение<#else>Выполнить</#if></a></td>
+            <td><a href="${'/delete/'+taskEntity.id}">Удалить</a></td>
         </tr>
     </#list>
 </table>
