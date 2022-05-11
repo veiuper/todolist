@@ -19,7 +19,7 @@
 <body>
 <h1>Todolist</h1>
 <h3>Добавление задачи в список</h3>
-<form action="/tasklistEntity/${tasklist.id}/add" method="post">
+<form action="/tasklist/${tasklist.id}/add" method="post">
     <table>
         <tr>
             <td>
