@@ -24,14 +24,14 @@ public class TaskEntity {
 
     public TaskEntity(
             Long id,
-            TasklistEntity tasklistEntity,
             Boolean executed,
-            @NotBlank(message = "{task.description.invalid}") String description
+            @NotBlank(message = "{task.description.invalid}") String description,
+            TasklistEntity tasklistEntity
     ) {
         this.id = id;
-        this.tasklistEntity = tasklistEntity;
         this.executed = executed;
         this.description = description;
+        this.tasklistEntity = tasklistEntity;
     }
 
     public Long getId() {
