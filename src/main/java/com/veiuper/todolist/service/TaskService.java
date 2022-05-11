@@ -24,8 +24,8 @@ public class TaskService {
 //        return taskRepository.findAll(Sort.by(Sort.Order.asc("executed"), Sort.Order.asc("id")));
 //    }
 
-    public TaskEntity save(TaskEntity taskEntity) {
-        return taskRepository.save(taskEntity);
+    public void save(TaskEntity taskEntity) {
+        taskRepository.save(taskEntity);
     }
 
     public void switchTaskStatus(Long id) throws BusinessException {
