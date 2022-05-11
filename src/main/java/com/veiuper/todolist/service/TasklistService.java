@@ -30,7 +30,7 @@ public class TasklistService {
         tasklistRepository.deleteById(id);
     }
 
-    public void deleteAll() {
-        tasklistRepository.deleteAll();
-    }
+//    public void deleteAll() {
+//        tasklistRepository.deleteAll();
+//    }
 }

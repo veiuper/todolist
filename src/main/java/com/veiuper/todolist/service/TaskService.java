@@ -3,10 +3,8 @@ package com.veiuper.todolist.service;
 import com.veiuper.todolist.dao.TaskRepository;
 import com.veiuper.todolist.exception.BusinessException;
 import com.veiuper.todolist.model.TaskEntity;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,13 +15,13 @@ public class TaskService {
         this.taskRepository = taskRepository;
     }
 
-    public TaskEntity getById(Long id) {
-        return taskRepository.getById(id);
-    }
-
-    public List<TaskEntity> getAll() {
-        return taskRepository.findAll(Sort.by(Sort.Order.asc("executed"), Sort.Order.asc("id")));
-    }
+//    public TaskEntity getById(Long id) {
+//        return taskRepository.getById(id);
+//    }
+//
+//    public List<TaskEntity> findAll() {
+//        return taskRepository.findAll(Sort.by(Sort.Order.asc("executed"), Sort.Order.asc("id")));
+//    }
 
     public TaskEntity save(TaskEntity taskEntity) {
         return taskRepository.save(taskEntity);
@@ -46,7 +44,7 @@ public class TaskService {
         taskRepository.deleteById(id);
     }
 
-    public void deleteAll() {
-        taskRepository.deleteAll();
-    }
+//    public void deleteAll() {
+//        taskRepository.deleteAll();
+//    }
 }
