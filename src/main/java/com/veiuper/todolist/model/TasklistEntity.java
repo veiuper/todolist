@@ -14,7 +14,7 @@ public class TasklistEntity {
     @NotBlank(message="{tasklist.description.invalid}")
     @Column(columnDefinition = "varchar(255)")
     private String description;
-    @OneToMany(mappedBy = "tasklistEntity", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "tasklistEntity", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Set<TaskEntity> taskEntities;
 
     public TasklistEntity() {
