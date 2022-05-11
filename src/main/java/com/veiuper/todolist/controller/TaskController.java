@@ -42,15 +42,15 @@ public class TaskController {
         return "redirect:/tasklist/{tasklistId}/tasks";
     }
 
-//    @RequestMapping("/tasklist/{id}/tasks/delete")
-//    public String deleteAll() {
+    @RequestMapping("/tasklist/{tasklistId}/switchTaskStatus/{taskId}")
+    public String reversTaskStatus(@PathVariable Long tasklistId, @PathVariable Long taskId) throws Exception {
+        taskService.switchTaskStatus(taskId);
+        return "redirect:/tasklist/{tasklistId}/tasks";
+    }
+
+//    @RequestMapping("/tasklist/{tasklistId}/delete/all")
+//    public String deleteAll(@PathVariable String tasklistId) {
 //        taskService.deleteAll();
 //        return "tasklist";
-//    }
-//
-//    @RequestMapping("/tasklist/{id}/task/reversTaskStatus/{id}")
-//    public String reversTaskStatus(@PathVariable Long id) throws Exception {
-//        taskService.reversTaskStatus(id);
-//        return "redirect:/tasklist";
 //    }
 }
