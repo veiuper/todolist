@@ -18,7 +18,10 @@
 </head>
 <body>
 <h1>Todolist</h1>
-<h3>Добавление задачи в список</h3>
+<form action="/">
+    <button type="submit">Назад</button>
+</form>
+<h3>Добавление задачи в список: ${tasklist.description}</h3>
 <form action="/tasklist/${tasklist.id}/add" method="post">
     <table>
         <tr>
