@@ -16,14 +16,6 @@ public class TaskService {
         this.taskRepository = taskRepository;
     }
 
-//    public TaskEntity getById(Long id) {
-//        return taskRepository.getById(id);
-//    }
-//
-//    public List<TaskEntity> findAll() {
-//        return taskRepository.findAll(Sort.by(Sort.Order.asc("executed"), Sort.Order.asc("id")));
-//    }
-
     public void save(TaskEntity taskEntity) {
         taskRepository.save(taskEntity);
     }
@@ -48,7 +40,4 @@ public class TaskService {
     public Set<TaskEntity> findByTasklistEntityIdOrderByExecutedAscIdAsc(Long tasklistEntityId) {
         return taskRepository.findByTasklistEntityIdOrderByExecutedAscIdAsc(tasklistEntityId);
     }
-//    public void deleteAll() {
-//        taskRepository.deleteAll();
-//    }
 }

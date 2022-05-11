@@ -47,10 +47,4 @@ public class TaskController {
         taskService.switchTaskStatus(taskId);
         return "redirect:/tasklist/{tasklistId}/tasks";
     }
-
-//    @RequestMapping("/tasklist/{tasklistId}/delete/all")
-//    public String deleteAll(@PathVariable String tasklistId) {
-//        taskService.deleteAll();
-//        return "tasklist";
-//    }
 }

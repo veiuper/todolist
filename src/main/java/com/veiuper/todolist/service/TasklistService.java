@@ -29,8 +29,4 @@ public class TasklistService {
     public void delete(Long id) {
         tasklistRepository.deleteById(id);
     }
-
-//    public void deleteAll() {
-//        tasklistRepository.deleteAll();
-//    }
 }
