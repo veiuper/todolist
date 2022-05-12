@@ -4,6 +4,7 @@ import com.veiuper.todolist.dao.UserRepository;
 import com.veiuper.todolist.model.ConfirmationToken;
 import com.veiuper.todolist.model.User;
 import lombok.AllArgsConstructor;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,6 +19,7 @@ import java.util.Optional;
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final ConfirmationTokenService confirmationTokenService;
+    private final EmailSenderService emailSenderService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
@@ -44,5 +46,18 @@ public class UserService implements UserDetailsService {
         user.setEnabled(true);
         userRepository.save(user);
         confirmationTokenService.delete(confirmationToken);
+    }
+
+    public void sendConfirmationMail(String userMail, String token) {
+        final SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(userMail);
+        message.setSubject("Mail Confirmation Link");
+        message.setFrom("MAIL");
+        message.setText(
+                "Thank you for registering." + System.lineSeparator() +
+                        "Please click on the below link to activate your account." + System.lineSeparator() +
+                        "http://localhost:8080/sign-up/confirm?token=" + token
+        );
+        emailSenderService.sendEmail(message);
     }
 }
