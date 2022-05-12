@@ -1,6 +1,7 @@
 package com.veiuper.todolist.model;
 
 
+import com.veiuper.todolist.UserRole;
 import lombok.*;
 import org.hibernate.Hibernate;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,12 +13,12 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
 
-@Getter
-@Setter
+@Entity(name = "usr")
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 @Builder()
-@Entity(name = "usr")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

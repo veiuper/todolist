@@ -1,4 +1,4 @@
-package com.veiuper.todolist.model;
+package com.veiuper.todolist;
 
 public enum UserRole {
     ADMIN, USER
