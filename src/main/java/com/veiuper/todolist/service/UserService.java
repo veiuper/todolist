@@ -1,5 +1,6 @@
 package com.veiuper.todolist.service;
 
+import com.veiuper.todolist.dao.ConfirmationTokenRepository;
 import com.veiuper.todolist.dao.UserRepository;
 import com.veiuper.todolist.model.ConfirmationToken;
 import com.veiuper.todolist.model.User;
@@ -17,6 +18,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
+    private final ConfirmationTokenRepository confirmationTokenRepository;
     private final ConfirmationTokenService confirmationTokenService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -35,5 +37,12 @@ public class UserService implements UserDetailsService {
         final User createdUser = userRepository.save(user);
         final ConfirmationToken confirmationToken = new ConfirmationToken(user);
         confirmationTokenService.save(confirmationToken);
+    }
+
+    public void confirmUser(ConfirmationToken confirmationToken) {
+        final User user = confirmationToken.getUser();
+        user.setEnabled(true);
+        userRepository.save(user);
+        confirmationTokenRepository.delete(confirmationToken);
     }
 }
