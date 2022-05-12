@@ -13,4 +13,8 @@ public class ConfirmationTokenService {
     public void save(ConfirmationToken confirmationToken) {
         confirmationTokenRepository.save(confirmationToken);
     }
+
+    public void delete(ConfirmationToken confirmationToken) {
+        confirmationTokenRepository.delete(confirmationToken);
+    }
 }
