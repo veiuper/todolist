@@ -5,6 +5,8 @@ import com.veiuper.todolist.model.ConfirmationToken;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @AllArgsConstructor
 public class ConfirmationTokenService {
@@ -16,5 +18,9 @@ public class ConfirmationTokenService {
 
     public void delete(ConfirmationToken confirmationToken) {
         confirmationTokenRepository.delete(confirmationToken);
+    }
+
+    public Optional<ConfirmationToken> findConfirmationTokenByConfirmationToken(String confirmationToken) {
+        return confirmationTokenRepository.findConfirmationTokenByConfirmationToken(confirmationToken);
     }
 }
