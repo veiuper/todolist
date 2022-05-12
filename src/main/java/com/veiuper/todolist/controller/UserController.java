@@ -38,6 +38,6 @@ public class UserController {
     String confirmMail(@RequestParam("token") String token) {
         Optional<ConfirmationToken> optionalConfirmationToken = confirmationTokenService.findConfirmationTokenByConfirmationToken(token);
         optionalConfirmationToken.ifPresent(userService::confirmUser);
-        return "/sign-in";
+        return "sign-in";
     }
 }
