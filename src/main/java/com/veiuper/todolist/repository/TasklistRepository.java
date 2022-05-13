@@ -1,4 +1,4 @@
-package com.veiuper.todolist.dao;
+package com.veiuper.todolist.repository;
 
 import com.veiuper.todolist.model.TasklistEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

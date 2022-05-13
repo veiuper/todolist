@@ -1,7 +1,7 @@
 package com.veiuper.todolist.service;
 
-import com.veiuper.todolist.dao.TasklistRepository;
 import com.veiuper.todolist.model.TasklistEntity;
+import com.veiuper.todolist.repository.TasklistRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

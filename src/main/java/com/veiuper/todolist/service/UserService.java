@@ -1,8 +1,8 @@
 package com.veiuper.todolist.service;
 
-import com.veiuper.todolist.dao.UserRepository;
 import com.veiuper.todolist.model.ConfirmationToken;
 import com.veiuper.todolist.model.User;
+import com.veiuper.todolist.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.userdetails.UserDetails;
