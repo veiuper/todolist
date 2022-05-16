@@ -20,7 +20,6 @@ public class TasklistController {
     public String getAll(Model model) {
         List<TasklistEntity> tasklistEntityList = tasklistService.getAll();
         model.addAttribute("tasklistList", tasklistEntityList);
-        model.addAttribute("tasklistSize", tasklistEntityList.size());
         return "index";
     }
 

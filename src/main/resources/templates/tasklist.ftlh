@@ -38,8 +38,7 @@
     </table>
 </form>
 <br>
-<#-- @ftlvariable name="taskSize" type="java.lang.Number" -->
-<h2>Список задач (количество : ${taskSize})</h2>
+<h2>Список задач (количество : ${taskList?size})</h2>
 <table class="numbered-table">
     <tr class="table-header">
         <th>№</th>

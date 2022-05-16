@@ -26,7 +26,6 @@ public class TaskController {
         Set<TaskEntity> taskEntityList = taskService.findByTasklistEntityIdOrderByExecutedAscIdAsc(tasklistId);
         model.addAttribute("tasklist", tasklistEntity);
         model.addAttribute("taskList", taskEntityList);
-        model.addAttribute("taskSize", taskEntityList.size());
         return "tasklist";
     }
 
