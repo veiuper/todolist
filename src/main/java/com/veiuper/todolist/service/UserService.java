@@ -11,7 +11,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.text.MessageFormat;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,6 +24,8 @@ public class UserService implements UserDetailsService {
     private final ConfirmationTokenService confirmationTokenService;
     private final EmailSenderService emailSenderService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    @PersistenceContext
+    private final EntityManager entityManager;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -32,13 +37,46 @@ public class UserService implements UserDetailsService {
         }
         return optionalUser.get();
     }
+    public User findById(Long id) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        return optionalUser.orElse(new User());
+    }
 
-    public void signUpUser(User user) {
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
+    public boolean save(User user) {
+        Optional<User> optionalUser = userRepository.findByEmail(user.getEmail());
+        if (optionalUser.isPresent()) {
+            return false;
+        }
         final String encryptedPassword = bCryptPasswordEncoder.encode(user.getPassword());
         user.setPassword(encryptedPassword);
-        final User createdUser = userRepository.save(user);
-        final ConfirmationToken confirmationToken = new ConfirmationToken(user);
-        confirmationTokenService.save(confirmationToken);
+        userRepository.save(user);
+        return true;
+    }
+
+    public boolean delete(Long id) {
+        if (userRepository.findById(id).isPresent()) {
+            userRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
+    public List<User> userGtList(Long id) {
+        return entityManager
+                .createQuery("SELECT u FROM usr u WHERE u.id > :paramId", User.class)
+                .setParameter("paramId", id)
+                .getResultList();
+    }
+
+    public void signUpUser(User user) {
+        if (save(user)) {
+            final ConfirmationToken confirmationToken = new ConfirmationToken(user);
+            confirmationTokenService.save(confirmationToken);
+        }
     }
 
     public void confirmUser(ConfirmationToken confirmationToken) {
