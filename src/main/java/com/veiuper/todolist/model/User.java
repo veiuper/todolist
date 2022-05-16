@@ -28,6 +28,8 @@ public class User implements UserDetails {
     private String surname;
     private String email;
     private String password;
+    @Transient
+    private String passwordConfirm;
     @Builder.Default
     private UserRole userRole = UserRole.USER;
     @Builder.Default
