@@ -9,8 +9,11 @@
 </head>
 <body>
 <div>
-    <@security.authorize access="!isAuthenticated()">
+    <@security.authorize access="isAuthenticated()">
         <h3><@security.authentication property="principal.username" /></h3>
+    </@security.authorize>
+    <@security.authorize access="!isAuthenticated()">
+        <h3>Гость</h3>
     </@security.authorize>
     <@security.authorize access="!isAuthenticated()">
         <h4><a href="/login">Войти</a></h4>
