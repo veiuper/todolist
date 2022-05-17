@@ -5,11 +5,11 @@
 <head>
     <title>Главная</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
 <div>
     <h1>Todolist</h1>
+    <h2>Выбор действия</h2>
     <@security.authorize access="isAuthenticated()">
         <h3><@security.authentication property="principal.username" /></h3>
     </@security.authorize>
