@@ -3,12 +3,13 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Todolist. Главная</title>
+    <title>Главная</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
 <div>
+    <h1>Todolist</h1>
     <@security.authorize access="isAuthenticated()">
         <h3><@security.authentication property="principal.username" /></h3>
     </@security.authorize>
