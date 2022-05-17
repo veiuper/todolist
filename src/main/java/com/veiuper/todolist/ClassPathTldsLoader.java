@@ -1,5 +1,6 @@
 package com.veiuper.todolist;
 
+import freemarker.ext.jsp.TaglibFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
@@ -25,6 +26,10 @@ public class ClassPathTldsLoader {
 
     @PostConstruct
     public void loadClassPathTlds() {
-        freeMarkerConfigurer.getTaglibFactory().setClasspathTlds(classPathTlds);
+        TaglibFactory tagLibFactory = freeMarkerConfigurer.getTaglibFactory();
+        tagLibFactory.setClasspathTlds(classPathTlds);
+        if (tagLibFactory.getObjectWrapper() == null) {
+            tagLibFactory.setObjectWrapper(freeMarkerConfigurer.getConfiguration().getObjectWrapper());
+        }
     }
 }
