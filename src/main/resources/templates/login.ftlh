@@ -8,9 +8,9 @@
 </head>
 <body>
 <h1>Todolist</h1>
-<@security.authorize access="isAuthenticated()">
-    <% response.sendRedirect("/"); %>
-</@security.authorize>
+<#--<@security.authorize access="isAuthenticated()">-->
+<#--    <% response.sendRedirect("/"); %>-->
+<#--</@security.authorize>-->
 <div>
     <form method="POST" action="/login">
         <h2>Вход в систему</h2>
