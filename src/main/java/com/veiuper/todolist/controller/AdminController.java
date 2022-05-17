@@ -20,10 +20,10 @@ public class AdminController {
         return "admin";
     }
 
-    @PostMapping("/admin")
+    @PostMapping(path = "/admin/delete/")
     public String deleteUser(
-            @RequestParam(required = true, defaultValue = "") Long userId,
-            @RequestParam(required = true, defaultValue = "") String action
+            @RequestParam() Long userId,
+            @RequestParam() String action
     ) {
         if (action.equals("delete")) {
             userService.delete(userId);
