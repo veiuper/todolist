@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Todolist</title>
-    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
     <style>
         table.numbered-table {
             counter-reset: rowNumber;
