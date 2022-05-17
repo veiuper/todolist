@@ -18,6 +18,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserService userService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
@@ -27,20 +32,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     //Доступ только для пользователей с ролью Администратор
                     .antMatchers("/admin/**").hasRole("ADMIN")
                     //Доступ разрешен всем пользователей
-                    .antMatchers("/", "/resources/**").permitAll()
-                .antMatchers("/sign-up/**", "/sign-in/**")
-                .permitAll()
-                .anyRequest()
-                .authenticated()
+//                    .antMatchers("/", "/resources/**").permitAll()
+                    .antMatchers("/").permitAll()
+                //Все остальные страницы требуют аутентификации
+                .anyRequest().authenticated()
                 .and()
-                .formLogin()
-                .loginPage("/sign-in")
-                .permitAll();
-    }
-
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
+                    //Настройка для входа в систему
+                    .formLogin()
+                    .loginPage("/login")
+                    //Перенарпавление на главную страницу после успешного входа
+                    .defaultSuccessUrl("/")
+                    .permitAll()
+                .and()
+                    .logout()
+                    .permitAll()
+                    .logoutSuccessUrl("/");
     }
 
     @Autowired
