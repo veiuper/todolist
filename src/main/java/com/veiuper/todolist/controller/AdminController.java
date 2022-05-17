@@ -20,7 +20,7 @@ public class AdminController {
         return "admin";
     }
 
-    @PostMapping(path = "/admin/delete/")
+    @PostMapping("/admin/delete/")
     public String deleteUser(
             @RequestParam() Long userId,
             @RequestParam() String action
