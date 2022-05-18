@@ -1,5 +1,6 @@
 package com.veiuper.todolist.controller;
 
+import com.veiuper.todolist.model.ConfirmationToken;
 import com.veiuper.todolist.model.User;
 import com.veiuper.todolist.service.ConfirmationTokenService;
 import com.veiuper.todolist.service.UserService;
@@ -10,8 +11,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 @AllArgsConstructor
@@ -38,18 +41,18 @@ public class RegistrationController {
             model.addAttribute("passwordError", "Пароли не совпадают.");
             return "registration";
         }
-////        if (!userService.save(userForm)) {
-////            model.addAttribute("usernameError", "Пользователь с таким именем уже существует.");
-////            return "registration";
-////        }
-        return "redirect:/";
+        if (!userService.registrationUser(userForm)) {
+            model.addAttribute("usernameError", "Пользователь с таким именем уже существует.");
+            return "registration";
+        }
+        return "redirect:/login";
     }
 
-//    @GetMapping("/confirm")
-//    public String confirmMail(@RequestParam("token") String token) {
-//        Optional<ConfirmationToken> optionalConfirmationToken;
-//        optionalConfirmationToken = confirmationTokenService.findConfirmationTokenByConfirmationToken(token);
-//        optionalConfirmationToken.ifPresent(userService::confirmUser);
-//        return "registration";
-//    }
+    @GetMapping("/registration/confirm")
+    public String confirmMail(@RequestParam("token") String token) {
+        Optional<ConfirmationToken> optionalConfirmationToken;
+        optionalConfirmationToken = confirmationTokenService.findConfirmationTokenByConfirmationToken(token);
+        optionalConfirmationToken.ifPresent(userService::confirmUser);
+        return "redirect:/login";
+    }
 }
