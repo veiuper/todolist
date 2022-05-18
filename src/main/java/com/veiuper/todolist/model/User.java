@@ -9,7 +9,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
@@ -28,7 +27,6 @@ public class User implements UserDetails {
     private String name;
     private String surname;
     private String email;
-    @Size(min = 8, max = 50)
     private String password;
     @Transient
     private String passwordConfirm;
@@ -75,6 +73,7 @@ public class User implements UserDetails {
         return enabled;
     }
 
+    @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
