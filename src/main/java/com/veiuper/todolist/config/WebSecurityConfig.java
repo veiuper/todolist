@@ -20,14 +20,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
+                .csrf()
+                    .disable()
                 .authorizeRequests()
                     //Доступ только для не зарегистрированных пользователей
-                    .antMatchers("/registration").not().fullyAuthenticated()
-                    //Доступ только для пользователей с ролью Администратор
-                    .antMatchers("/admin/**").hasRole("ADMIN")
+                    .antMatchers("/login/**", "/registration/**").not().fullyAuthenticated()
                     //Доступ разрешен всем пользователей
-//                    .antMatchers("/", "/resources/**").permitAll()
-                    .antMatchers("/").permitAll()
+                    .antMatchers("/", "/resources/**", "/favicon.ico", "/error").permitAll()
+                      //Доступ только для пользователей с ролью Администратор
+                    .antMatchers("/admin/**").hasRole("ADMIN")
                 //Все остальные страницы требуют аутентификации
                 .anyRequest().authenticated()
                 .and()
@@ -40,7 +41,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .logout()
                     .permitAll()
-                    .logoutSuccessUrl("/");
+                    .logoutSuccessUrl("/")
+                    ;
     }
 
     @Autowired
