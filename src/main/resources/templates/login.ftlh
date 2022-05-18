@@ -1,5 +1,3 @@
-<#assign  security=JspTaglibs["http://www.springframework.org/security/tags"] />
-
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -16,12 +14,13 @@
         <h2>Вход в систему</h2>
         <div>
             <label>
-                <input autofocus name="username" placeholder="Username" type="text"/>
+                <input autofocus name="email" placeholder="Email" type="text"/>
             </label>
             <label>
-                <input name="password" type="password" placeholder="Password"/>
+                <input name="password" type="password" placeholder="Пароль"/>
             </label>
             <button type="submit">Войти</button>
+            <h4><a href="/">Главная</a></h4>
             <h4><a href="/registration">Зарегистрироваться</a></h4>
         </div>
     </form>
