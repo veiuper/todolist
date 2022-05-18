@@ -72,11 +72,14 @@ public class UserService implements UserDetailsService {
                 .getResultList();
     }
 
-    public void signUpUser(User user) {
-        if (save(user)) {
-            final ConfirmationToken confirmationToken = new ConfirmationToken(user);
-            confirmationTokenService.save(confirmationToken);
+    public boolean registrationUser(User user) {
+        if (!save(user)) {
+            return false;
         }
+        final ConfirmationToken confirmationToken = new ConfirmationToken(user);
+        confirmationTokenService.save(confirmationToken);
+        sendConfirmationMail(user.getEmail(), confirmationToken.getConfirmationToken());
+        return true;
     }
 
     public void confirmUser(ConfirmationToken confirmationToken) {
@@ -94,7 +97,7 @@ public class UserService implements UserDetailsService {
         message.setText(
                 "Thank you for registering." + System.lineSeparator() +
                         "Please click on the below link to activate your account." + System.lineSeparator() +
-                        "http://localhost:8080/sign-up/confirm?token=" + token
+                        "http://localhost:8080/registration/confirm?token=" + token
         );
         emailSenderService.sendEmail(message);
     }
