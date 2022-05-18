@@ -80,7 +80,6 @@ public class User implements UserDetails {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         User user = (User) o;
-
         return Objects.equals(id, user.id);
     }
 
