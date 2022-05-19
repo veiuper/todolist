@@ -35,8 +35,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     //Настройка для входа в систему
                     .formLogin()
                     .loginPage("/login")
-                    //Перенарпавление на главную страницу после успешного входа
-                    .defaultSuccessUrl("/")
+                    //Перенарпавление после успешного входа
+                    .defaultSuccessUrl("/tasklists")
                     .permitAll()
                 .and()
                     .logout()
