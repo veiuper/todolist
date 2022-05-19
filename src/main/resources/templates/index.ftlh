@@ -19,6 +19,7 @@
         <h4><a href="/registration">Зарегистрироваться</a></h4>
     </@security.authorize>
     <@security.authorize access="isAuthenticated()">
+        <h4><a href="/tasklists">Мои списки задач</a></h4>
         <h4><a href="/logout">Выйти</a></h4>
     </@security.authorize>
     <h4><a href="/admin">Пользователи (только администратор)</a></h4>
