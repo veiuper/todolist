@@ -14,7 +14,7 @@
         <h2>Вход в систему</h2>
         <div>
             <label>
-                <input autofocus name="email" placeholder="Email" type="text"/>
+                <input autofocus name="username" placeholder="Email" type="text"/>
             </label>
             <label>
                 <input name="password" type="password" placeholder="Пароль"/>
