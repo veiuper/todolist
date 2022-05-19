@@ -1,3 +1,5 @@
+<#assign security=JspTaglibs["http://www.springframework.org/security/tags"] />
+
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -6,9 +8,6 @@
 </head>
 <body>
 <h1>Todolist</h1>
-<#--<@security.authorize access="isAuthenticated()">-->
-<#--    <% response.sendRedirect("/"); %>-->
-<#--</@security.authorize>-->
 <div>
     <form method="POST" action="/login">
         <h2>Вход в систему</h2>
@@ -21,7 +20,9 @@
             </label>
             <button type="submit">Войти</button>
             <h4><a href="/">Главная</a></h4>
-            <h4><a href="/registration">Зарегистрироваться</a></h4>
+            <@security.authorize access="isAnonymous()">
+                <h4><a href="/registration">Зарегистрироваться</a></h4>
+            </@security.authorize>
         </div>
     </form>
 </div>
