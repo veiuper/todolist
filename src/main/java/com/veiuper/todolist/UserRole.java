@@ -1,5 +1,5 @@
 package com.veiuper.todolist;
 
 public enum UserRole {
-    ADMIN, USER
+    ROLE_ADMIN, ROLE_USER
 }
