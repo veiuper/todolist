@@ -65,6 +65,28 @@ public class UserService implements UserDetailsService {
         return false;
     }
 
+    public boolean switchLocked(Long id) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            user.setLocked(!user.getLocked());
+            userRepository.save(user);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean switchEnabled(Long id) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            user.setEnabled(!user.getEnabled());
+            userRepository.save(user);
+            return true;
+        }
+        return false;
+    }
+
     public List<User> userGtList(Long id) {
         return entityManager
                 .createQuery("SELECT u FROM usr u WHERE u.id > :paramId", User.class)
