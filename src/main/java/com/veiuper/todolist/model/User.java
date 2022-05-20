@@ -31,7 +31,7 @@ public class User implements UserDetails {
     @Transient
     private String passwordConfirm;
     @Builder.Default
-    private UserRole userRole = UserRole.USER;
+    private UserRole userRole = UserRole.ROLE_USER;
     @Builder.Default
     private Boolean locked = false;
     @Builder.Default
