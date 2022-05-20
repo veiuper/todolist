@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Todolist</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
     <style>
         table.numbered-table {
             counter-reset: rowNumber;
@@ -36,8 +36,8 @@
 </form>
 <br>
 <h2>Список списков задач (количество : ${tasklistList?size})</h2>
-    <table class="numbered-table">
-        <tr class="table-header">
+<table class="numbered-table">
+    <tr class="table-header">
         <th>№</th>
         <th>Описание</th>
         <th>Удаление</th>
