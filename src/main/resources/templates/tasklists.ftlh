@@ -18,6 +18,7 @@
 </head>
 <body>
 <h1>Todolist</h1>
+<h4><a href="/logout">Выйти</a></h4>
 <h3>Добавление списка задач</h3>
 <form action="/add" method="post">
     <table>
