@@ -37,9 +37,12 @@ public class UserService implements UserDetailsService {
         }
         return optionalUser.get();
     }
-    public User findById(Long id) {
-        Optional<User> optionalUser = userRepository.findById(id);
-        return optionalUser.orElse(new User());
+    public Optional<User> findById(Long id) {
+        return userRepository.findById(id);
+    }
+
+    public Optional<User> findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
     public List<User> findAll() {
