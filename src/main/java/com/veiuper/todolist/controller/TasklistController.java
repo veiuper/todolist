@@ -1,31 +1,45 @@
 package com.veiuper.todolist.controller;
 
 import com.veiuper.todolist.model.TasklistEntity;
+import com.veiuper.todolist.model.User;
 import com.veiuper.todolist.service.TasklistService;
+import com.veiuper.todolist.service.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
+@AllArgsConstructor
 public class TasklistController {
     private final TasklistService tasklistService;
-
-    public TasklistController(TasklistService tasklistService) {
-        this.tasklistService = tasklistService;
-    }
+    private final UserService userService;
 
     @GetMapping("/tasklists")
-    public String getAll(Model model) {
-        List<TasklistEntity> tasklistEntityList = tasklistService.getAll();
+    public String getAll(Model model, Principal principal) {
+        Optional<User> optionalUser = userService.findByEmail(principal.getName());
+        List<TasklistEntity> tasklistEntityList;
+        if (optionalUser.isPresent()) {
+            tasklistEntityList = tasklistService.getAll(optionalUser.get());
+        } else {
+            tasklistEntityList = new ArrayList<>();
+        }
         model.addAttribute("tasklistList", tasklistEntityList);
         return "tasklists";
     }
 
     @PostMapping("/add")
-    public String addTasklist(@ModelAttribute TasklistEntity tasklistEntity) {
-        tasklistService.save(tasklistEntity);
+    public String addTasklist(@ModelAttribute TasklistEntity tasklistEntity, Principal principal) {
+        Optional<User> optionalUser = userService.findByEmail(principal.getName());
+        if (optionalUser.isPresent()) {
+            tasklistEntity.setUser(optionalUser.get());
+            tasklistService.save(tasklistEntity);
+        }
         return "redirect:/tasklists";
     }
 
