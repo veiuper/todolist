@@ -32,11 +32,8 @@ public class User implements UserDetails {
     String password;
     @Transient
     String passwordConfirm;
-    
     UserRole userRole = UserRole.ROLE_USER;
-    
     Boolean locked = false;
-    
     Boolean enabled = false;
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     Set<TasklistEntity> tasklists;
