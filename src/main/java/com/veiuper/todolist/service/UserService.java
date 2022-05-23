@@ -3,7 +3,9 @@ package com.veiuper.todolist.service;
 import com.veiuper.todolist.model.ConfirmationToken;
 import com.veiuper.todolist.model.User;
 import com.veiuper.todolist.repository.UserRepository;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,14 +20,15 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @AllArgsConstructor
 public class UserService implements UserDetailsService {
-    private final UserRepository userRepository;
-    private final ConfirmationTokenService confirmationTokenService;
-    private final EmailSenderService emailSenderService;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    UserRepository userRepository;
+    ConfirmationTokenService confirmationTokenService;
+    EmailSenderService emailSenderService;
+    BCryptPasswordEncoder bCryptPasswordEncoder;
     @PersistenceContext
-    private final EntityManager entityManager;
+    EntityManager entityManager;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -37,6 +40,7 @@ public class UserService implements UserDetailsService {
         }
         return optionalUser.get();
     }
+
     public Optional<User> findById(Long id) {
         return userRepository.findById(id);
     }

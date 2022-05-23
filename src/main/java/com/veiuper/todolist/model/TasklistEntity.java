@@ -1,9 +1,7 @@
 package com.veiuper.todolist.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -11,6 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "tasklist")
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -19,12 +18,13 @@ public class TasklistEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, updatable = false)
-    private Long id;
+    @Setter(AccessLevel.NONE)
+    Long id;
     @NotBlank(message="{tasklist.description.invalid}")
     @Column(columnDefinition = "varchar(255)")
-    private String description;
-    @OneToMany(mappedBy = "tasklistEntity", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    private Set<TaskEntity> taskEntities;
+    String description;
     @ManyToOne(fetch = FetchType.EAGER)
-    private User user;
+    User user;
+    @OneToMany(mappedBy = "tasklistEntity", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    Set<TaskEntity> taskEntities;
 }

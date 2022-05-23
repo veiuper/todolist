@@ -1,15 +1,14 @@
 package com.veiuper.todolist.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity(name = "confirmation_token")
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -18,12 +17,12 @@ public class ConfirmationToken {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, updatable = false)
-    private Long id;
-    private String confirmationToken;
-    private LocalDate createdDate;
+    Long id;
+    String confirmationToken;
+    LocalDate createdDate;
     @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(nullable = false)
-    private User user;
+    User user;
 
     public ConfirmationToken(User user) {
         this.user = user;

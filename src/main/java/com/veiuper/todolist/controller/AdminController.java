@@ -1,16 +1,19 @@
 package com.veiuper.todolist.controller;
 
 import com.veiuper.todolist.service.UserService;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @AllArgsConstructor
 public class AdminController {
-    private final UserService userService;
+    UserService userService;
 
     @GetMapping("/admin")
     public String userList(Model model) {

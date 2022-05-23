@@ -4,7 +4,9 @@ import com.veiuper.todolist.model.TasklistEntity;
 import com.veiuper.todolist.model.User;
 import com.veiuper.todolist.service.TasklistService;
 import com.veiuper.todolist.service.UserService;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +17,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @AllArgsConstructor
 public class TasklistController {
-    private final TasklistService tasklistService;
-    private final UserService userService;
+    TasklistService tasklistService;
+    UserService userService;
 
     @GetMapping("/tasklists")
     public String getAll(Model model, Principal principal) {

@@ -4,7 +4,9 @@ import com.veiuper.todolist.model.ConfirmationToken;
 import com.veiuper.todolist.model.User;
 import com.veiuper.todolist.service.ConfirmationTokenService;
 import com.veiuper.todolist.service.UserService;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,10 +19,11 @@ import javax.validation.Valid;
 import java.util.Optional;
 
 @Controller
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @AllArgsConstructor
 public class RegistrationController {
-    private final UserService userService;
-    private final ConfirmationTokenService confirmationTokenService;
+    UserService userService;
+    ConfirmationTokenService confirmationTokenService;
 
     @GetMapping("/registration")
     public String registration(Model model) {

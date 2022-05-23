@@ -1,8 +1,8 @@
 package com.veiuper.todolist.model;
 
-
 import com.veiuper.todolist.UserRole;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 import org.hibernate.Hibernate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,6 +15,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity(name = "usr")
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -24,21 +25,22 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Long id;
-    private String name;
-    private String surname;
-    private String email;
-    private String password;
+    @Setter(AccessLevel.NONE)
+    Long id;
+    String name;
+    String surname;
+    String email;
+    String password;
     @Transient
-    private String passwordConfirm;
+    String passwordConfirm;
     @Builder.Default
-    private UserRole userRole = UserRole.ROLE_USER;
+    UserRole userRole = UserRole.ROLE_USER;
     @Builder.Default
-    private Boolean locked = false;
+    Boolean locked = false;
     @Builder.Default
-    private Boolean enabled = false;
+    Boolean enabled = false;
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    private Set<TasklistEntity> tasklists;
+    Set<TasklistEntity> tasklists;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

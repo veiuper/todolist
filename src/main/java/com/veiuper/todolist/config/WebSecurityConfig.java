@@ -1,7 +1,9 @@
 package com.veiuper.todolist.config;
 
 import com.veiuper.todolist.service.UserService;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -12,10 +14,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @AllArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    private final UserService userService;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    UserService userService;
+    BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {

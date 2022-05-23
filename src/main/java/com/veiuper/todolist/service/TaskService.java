@@ -3,18 +3,19 @@ package com.veiuper.todolist.service;
 import com.veiuper.todolist.exception.BusinessException;
 import com.veiuper.todolist.model.TaskEntity;
 import com.veiuper.todolist.repository.TaskRepository;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.Set;
 
 @Service
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@AllArgsConstructor
 public class TaskService {
-    private final TaskRepository taskRepository;
-
-    public TaskService(TaskRepository taskRepository) {
-        this.taskRepository = taskRepository;
-    }
+    TaskRepository taskRepository;
 
     public void save(TaskEntity taskEntity) {
         taskRepository.save(taskEntity);
