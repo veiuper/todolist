@@ -20,7 +20,6 @@ import java.util.Set;
 @AllArgsConstructor
 @Getter
 @Setter
-@Builder()
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,11 +32,11 @@ public class User implements UserDetails {
     String password;
     @Transient
     String passwordConfirm;
-    @Builder.Default
+    
     UserRole userRole = UserRole.ROLE_USER;
-    @Builder.Default
+    
     Boolean locked = false;
-    @Builder.Default
+    
     Boolean enabled = false;
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     Set<TasklistEntity> tasklists;
