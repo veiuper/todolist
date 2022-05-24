@@ -1,56 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
+<#assign  security=JspTaglibs["http://www.springframework.org/security/tags"] />
+
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>Todolist</title>
-    <link rel="stylesheet" type="text/css" href="/css/style.x63573.css"/>
+    <title>Главная</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-<h1>Todolist</h1>
-<h3>Add task to list</h3>
-<form action="/add" method="post">
-    <table border="1px">
-        <tr>
-            <td>
-                <label>Priority</label>
-                <input type="number" name="priorityId">
-            </td>
-            <td>
-                <label>Description</label>
-                <input type="text" name="description">
-            </td>
-            <td>
-                <label>Date</label>
-                <input type="date" name="date">
-            </td>
-
-            <td>
-                <input type="submit" value="add task">
-            </td>
-
-        </tr>
-
-    </table>
-</form>
-<br>
-<h2>Task list(task count : ${taskSize})</h2>
-<table border="1px">
-    <tr>
-        <td>Id</td>
-        <td>Priority</td>
-        <td>Task description</td>
-        <td>Date</td>
-        <td>Delete from list</td>
-    </tr>
-    <#list taskList as task>
-        <tr>
-            <td>${task.id}</td>
-            <td>${task.priorityId}</td>
-            <td>${task.description}</td>
-            <td>${task.date}</td>
-            <td><a href="${'/delete/'+task.id}">Delete</a></td>
-        </tr>
-    </#list>
-</table>
+<div>
+    <h1>Todolist</h1>
+    <h2>Выбор действия</h2>
+    <@security.authorize access="isAuthenticated()">
+        <h3><@security.authentication property="principal.username" /></h3>
+    </@security.authorize>
+    <@security.authorize access="isAnonymous()">
+        <h3>Гость</h3>
+        <h4><a href="/login">Войти</a></h4>
+        <h4><a href="/registration">Зарегистрироваться</a></h4>
+    </@security.authorize>
+    <@security.authorize access="isAuthenticated()">
+        <h4><a href="/tasklists">Мои списки задач</a></h4>
+        <h4><a href="/logout">Выйти</a></h4>
+    </@security.authorize>
+    <h4><a href="/admin">Пользователи (только администратор)</a></h4>
+</div>
 </body>
 </html>
