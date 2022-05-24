@@ -9,7 +9,8 @@
 <body>
 <h1>Todolist</h1>
 <div>
-    <form method="POST" action="/login">
+    <form method="post" action="/login">
+        <@security.csrfInput />
         <h2>Вход в систему</h2>
         <div>
             <label>

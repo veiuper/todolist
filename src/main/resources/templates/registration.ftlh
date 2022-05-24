@@ -16,6 +16,7 @@
         <h3>Гость</h3>
     </@security.authorize>
     <form name="user" action="/registration" method="post">
+        <@security.csrfInput />
         Имя:<br>
         <@spring.formInput "user.name"/>
         <@spring.showErrors "<br>"/>

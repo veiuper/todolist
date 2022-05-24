@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Configuration
 @EnableWebSecurity
@@ -20,20 +21,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     UserService userService;
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .passwordEncoder(bCryptPasswordEncoder)
-                .withUser("user")
-                .password("$2a$10$t7zJalDxF0t2sG4K4..Ur.czZO24prYwEgFKQodVaZHT86ADHAWV2")
-                .roles("USER");
-    }
+    // TODO После добавления пользователя не работает вход для зарегистрированных
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.inMemoryAuthentication()
+//                .passwordEncoder(bCryptPasswordEncoder)
+//                .withUser("user")
+//                .password("$2a$10$t7zJalDxF0t2sG4K4..Ur.czZO24prYwEgFKQodVaZHT86ADHAWV2")
+//                .roles("USER");
+//    }
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .csrf()
-                    .disable()
+                    .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                .and()
                 .authorizeRequests()
                     //Доступ только для не зарегистрированных пользователей
                     .antMatchers("/login/**", "/registration/**").not().fullyAuthenticated()
@@ -48,7 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .formLogin()
                     .loginPage("/login")
                     //Перенарпавление после успешного входа
-                    .defaultSuccessUrl("/tasklists")
+                    .defaultSuccessUrl("/")
                     .permitAll()
                 .and()
                     .logout()

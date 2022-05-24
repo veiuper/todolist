@@ -20,7 +20,10 @@
     </@security.authorize>
     <@security.authorize access="isAuthenticated()">
         <h4><a href="/tasklists">Мои списки задач</a></h4>
-        <h4><a href="/logout">Выйти</a></h4>
+        <form action="/logout" method="post">
+            <@security.csrfInput />
+            <input type="submit" value="Выйти">
+        </form>
     </@security.authorize>
     <h4><a href="/admin">Пользователи (только администратор)</a></h4>
 </div>

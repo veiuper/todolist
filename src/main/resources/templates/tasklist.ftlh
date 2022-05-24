@@ -1,3 +1,5 @@
+<#assign security=JspTaglibs["http://www.springframework.org/security/tags"] />
+
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -19,9 +21,13 @@
 <body>
 <h1>Todolist</h1>
 <h4><a href="/tasklists">Назад</a></h4>
-<h4><a href="/logout">Выйти</a></h4>
+<form action="/logout" method="post">
+    <@security.csrfInput />
+    <input type="submit" value="Выйти">
+</form>
 <h3>Добавление задачи в список: ${tasklist.description}</h3>
 <form action="/tasklist/${tasklist.id}/add" method="post">
+    <@security.csrfInput />
     <table>
         <tr>
             <td>

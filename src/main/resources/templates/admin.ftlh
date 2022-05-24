@@ -1,3 +1,5 @@
+<#assign security=JspTaglibs["http://www.springframework.org/security/tags"] />
+
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -45,7 +47,11 @@
             </#list>
         </tbody>
     </table>
-    <h4><a href="/logout">Выйти</a></h4>
+    <br>
+    <form action="/logout" method="post">
+        <@security.csrfInput />
+        <input type="submit" value="Выйти">
+    </form>
 </div>
 </body>
 </html>
