@@ -20,11 +20,11 @@
 </head>
 <body>
 <h1>Todolist</h1>
-<h4><a href="/tasklists">Назад</a></h4>
 <form action="/logout" method="post">
     <@security.csrfInput />
     <input type="submit" value="Выйти">
 </form>
+<h4><a href="/tasklists">Назад</a></h4>
 <h3>Добавление задачи в список: ${tasklist.description}</h3>
 <form action="/tasklist/${tasklist.id}/add" method="post">
     <@security.csrfInput />

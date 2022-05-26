@@ -19,11 +19,11 @@
         <h4><a href="/registration">Зарегистрироваться</a></h4>
     </@security.authorize>
     <@security.authorize access="isAuthenticated()">
-        <h4><a href="/tasklists">Мои списки задач</a></h4>
         <form action="/logout" method="post">
             <@security.csrfInput />
             <input type="submit" value="Выйти">
         </form>
+        <h4><a href="/tasklists">Мои списки задач</a></h4>
     </@security.authorize>
     <h4><a href="/admin">Пользователи (только администратор)</a></h4>
 </div>
