@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -21,8 +23,8 @@ public class AdminController {
         return "admin";
     }
 
-    @GetMapping("/admin/{action}/{userId}")
-    public String switchLocked(@PathVariable String action, @PathVariable Long userId) {
+    @PostMapping("/admin")
+    public String updateOrDeleteUser(@RequestParam String action, @RequestParam Long userId, Model model) {
         if (action.equals("delete")) {
             userService.delete(userId);
         }
@@ -32,7 +34,7 @@ public class AdminController {
         if (action.equals("switchEnabled")) {
             userService.switchEnabled(userId);
         }
-        return "redirect:/admin";
+        return userList(model);
     }
 
     @GetMapping("/admin/gt/{userId}")

@@ -35,13 +35,28 @@
                     <td>${user.locked?c}</td>
                     <td>${user.enabled?c}</td>
                     <td>
-                        <a href="${'/admin/delete/'+user.id}">Удалить</a>
+                        <form action="/admin/" method="post">
+                            <@security.csrfInput />
+                            <input type="hidden" name="action" value="delete">
+                            <input type="hidden" name="userId" value=${user.id}>
+                            <input type="submit" value="Удалить">
+                        </form>
                     </td>
                     <td>
-                        <a href="${'/admin/switchLocked/'+user.id}"><#if user.locked>Разблокировать<#else>Заблокировать</#if></a>
+                        <form action="/admin/" method="post">
+                            <@security.csrfInput />
+                            <input type="hidden" name="action" value="switchLocked">
+                            <input type="hidden" name="userId" value=${user.id}>
+                            <input type="submit" value=<#if user.locked>Разблокировать<#else>Заблокировать</#if>>
+                        </form>
                     </td>
                     <td>
-                        <a href="${'/admin/switchEnabled/'+user.id}"><#if user.enabled>Запретить<#else>Разрешить</#if></a>
+                        <form action="/admin/" method="post">
+                            <@security.csrfInput />
+                            <input type="hidden" name="action" value="switchEnabled">
+                            <input type="hidden" name="userId" value=${user.id}>
+                            <input type="submit" value=<#if user.enabled>Запретить<#else>Разрешить</#if>>
+                        </form>
                     </td>
                 </tr>
             </#list>
