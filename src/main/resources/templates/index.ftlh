@@ -25,7 +25,9 @@
         </form>
         <h4><a href="/tasklists">Мои списки задач</a></h4>
     </@security.authorize>
-    <h4><a href="/admin">Пользователи (только администратор)</a></h4>
+    <@security.authorize access="hasRole('ADMIN')">
+        <h4><a href="/admin">Пользователи (только администратор)</a></h4>
+    </@security.authorize>
 </div>
 </body>
 </html>
