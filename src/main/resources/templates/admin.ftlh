@@ -9,6 +9,12 @@
 </head>
 <body>
 <h1>Todolist</h1>
+<form action="/logout" method="post">
+    <@security.csrfInput />
+    <input type="submit" value="Выйти">
+</form>
+<h4><a href="/">Главная</a></h4>
+<h4><a href="/tasklists">Мои списки задач</a></h4>
 <div>
     <table>
         <thead>
@@ -35,7 +41,7 @@
                     <td>${user.locked?c}</td>
                     <td>${user.enabled?c}</td>
                     <td>
-                        <form action="/admin/" method="post">
+                        <form action="/admin" method="post">
                             <@security.csrfInput />
                             <input type="hidden" name="action" value="delete">
                             <input type="hidden" name="userId" value=${user.id}>
@@ -43,7 +49,7 @@
                         </form>
                     </td>
                     <td>
-                        <form action="/admin/" method="post">
+                        <form action="/admin" method="post">
                             <@security.csrfInput />
                             <input type="hidden" name="action" value="switchLocked">
                             <input type="hidden" name="userId" value=${user.id}>
@@ -51,7 +57,7 @@
                         </form>
                     </td>
                     <td>
-                        <form action="/admin/" method="post">
+                        <form action="/admin" method="post">
                             <@security.csrfInput />
                             <input type="hidden" name="action" value="switchEnabled">
                             <input type="hidden" name="userId" value=${user.id}>
@@ -63,10 +69,6 @@
         </tbody>
     </table>
     <br>
-    <form action="/logout" method="post">
-        <@security.csrfInput />
-        <input type="submit" value="Выйти">
-    </form>
 </div>
 </body>
 </html>
