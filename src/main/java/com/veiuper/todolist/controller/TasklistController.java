@@ -9,7 +9,10 @@ import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -46,8 +49,8 @@ public class TasklistController {
         return "redirect:/tasklists";
     }
 
-    @RequestMapping("/delete/{id}")
-    public String deleteTasklist(@PathVariable Long id) {
+    @PostMapping("/delete")
+    public String deleteTasklist(@RequestParam Long id) {
         tasklistService.delete(id);
         return "redirect:/tasklists";
     }

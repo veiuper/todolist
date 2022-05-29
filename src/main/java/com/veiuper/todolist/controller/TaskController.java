@@ -29,21 +29,24 @@ public class TaskController {
         return "tasklist";
     }
 
-    @PostMapping("/tasklist/{tasklistId}/add")
-    public String addTask(@ModelAttribute TaskEntity taskEntity, @PathVariable Long tasklistId) {
+    @PostMapping("/tasklist/add")
+    public String addTask(@ModelAttribute TaskEntity taskEntity, @RequestParam Long tasklistId) {
         taskEntity.setTasklistEntity(tasklistService.getById(tasklistId));
         taskService.save(taskEntity);
-        return "redirect:/tasklist/{tasklistId}/tasks";
+        String redirectTo = "/tasklist/" + tasklistId + "/tasks";
+        return "redirect:" + redirectTo;
     }
-    @RequestMapping("/tasklist/{tasklistId}/delete/{taskId}")
-    public String deleteTask(@PathVariable String tasklistId, @PathVariable Long taskId) {
+    @PostMapping("/tasklist/delete")
+    public String deleteTask(@RequestParam String tasklistId, @RequestParam Long taskId) {
         taskService.delete(taskId);
-        return "redirect:/tasklist/{tasklistId}/tasks";
+        String redirectTo = "/tasklist/" + tasklistId + "/tasks";
+        return "redirect:" + redirectTo;
     }
 
-    @RequestMapping("/tasklist/{tasklistId}/switchTaskStatus/{taskId}")
-    public String reversTaskStatus(@PathVariable Long tasklistId, @PathVariable Long taskId) throws Exception {
+    @PostMapping("/tasklist/switchTaskStatus")
+    public String reversTaskStatus(@RequestParam Long tasklistId, @RequestParam Long taskId) throws Exception {
         taskService.switchTaskStatus(taskId);
-        return "redirect:/tasklist/{tasklistId}/tasks";
+        String redirectTo = "/tasklist/" + tasklistId + "/tasks";
+        return "redirect:" + redirectTo;
     }
 }

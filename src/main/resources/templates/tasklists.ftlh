@@ -24,6 +24,7 @@
     <@security.csrfInput />
     <input type="submit" value="Выйти">
 </form>
+<h4><a href="/">Главная</a></h4>
 <h3>Добавление списка задач</h3>
 <form action="/add" method="post">
     <@security.csrfInput />
@@ -53,7 +54,13 @@
         <tr>
             <td></td>
             <td><a href="${'/tasklist/'+tasklist.id+'/tasks'}">${tasklist.description}</a></td>
-            <td><a href="${'/delete/'+tasklist.id}">Удалить</a></td>
+            <td>
+                <form action="/delete" method="post">
+                    <@security.csrfInput />
+                    <input type="hidden" name="id" value=${tasklist.id}>
+                    <input type="submit" value="Удалить">
+                </form>
+            </td>
         </tr>
     </#list>
 </table>

@@ -24,10 +24,12 @@
     <@security.csrfInput />
     <input type="submit" value="Выйти">
 </form>
-<h4><a href="/tasklists">Назад</a></h4>
+<h4><a href="/">Главная</a></h4>
+<h4><a href="/tasklists">Мои списки задач</a></h4>
 <h3>Добавление задачи в список: ${tasklist.description}</h3>
-<form action="/tasklist/${tasklist.id}/add" method="post">
+<form action="/tasklist/add" method="post">
     <@security.csrfInput />
+    <input type="hidden" name="tasklistId" value=${tasklist.id}>
     <table>
         <tr>
             <td>
@@ -55,8 +57,22 @@
         <tr>
             <td></td>
             <td <#if task.executed> style="text-decoration: line-through;"</#if>>${task.description}</td>
-            <td><a href="${'/tasklist/'+tasklist.id+'/switchTaskStatus/'+task.id}"><#if task.executed>Отменить выполнение<#else>Выполнить</#if></a></td>
-            <td><a href="${'/tasklist/'+tasklist.id+'/delete/'+task.id}">Удалить</a></td>
+            <td>
+                <form action="/tasklist/switchTaskStatus" method="post">
+                    <@security.csrfInput />
+                    <input type="hidden" name="tasklistId" value=${tasklist.id}>
+                    <input type="hidden" name="taskId" value=${task.id}>
+                    <input type="submit" value=<#if task.executed>Отменить выполнение<#else>Выполнить</#if>>
+                </form>
+            </td>
+            <td>
+                <form action="/tasklist/delete" method="post">
+                    <@security.csrfInput />
+                    <input type="hidden" name="tasklistId" value=${tasklist.id}>
+                    <input type="hidden" name="taskId" value=${task.id}>
+                    <input type="submit" value="Удалить">
+                </form>
+            </td>
         </tr>
     </#list>
 </table>
