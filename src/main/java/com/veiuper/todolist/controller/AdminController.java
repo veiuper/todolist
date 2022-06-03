@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+
 @Controller
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @AllArgsConstructor
@@ -24,7 +27,11 @@ public class AdminController {
     }
 
     @PostMapping("/admin")
-    public String updateOrDeleteUser(@RequestParam String action, @RequestParam Long userId, Model model) {
+    public String updateOrDeleteUser(
+            @RequestParam @NotBlank String action,
+            @RequestParam @Min(0) Long userId,
+            Model model
+    ) {
         if (action.equals("delete")) {
             userService.delete(userId);
         }
@@ -38,7 +45,7 @@ public class AdminController {
     }
 
     @GetMapping("/admin/gt/{userId}")
-    public String  gtUser(@PathVariable("userId") Long userId, Model model) {
+    public String  gtUser(@PathVariable("userId") @Min(0) Long userId, Model model) {
         model.addAttribute("allUsers", userService.userGtList(userId));
         return "admin";
     }

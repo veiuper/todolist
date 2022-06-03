@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import java.util.Optional;
 
 @Controller
@@ -52,7 +53,7 @@ public class RegistrationController {
     }
 
     @GetMapping("/registration/confirm")
-    public String confirmMail(@RequestParam("token") String token) {
+    public String confirmMail(@RequestParam("token") @NotBlank String token) {
         Optional<ConfirmationToken> optionalConfirmationToken;
         optionalConfirmationToken = confirmationTokenService.findConfirmationTokenByConfirmationToken(token);
         optionalConfirmationToken.ifPresent(userService::confirmUser);

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.validation.constraints.Min;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +51,7 @@ public class TasklistController {
     }
 
     @PostMapping("/delete")
-    public String deleteTasklist(@RequestParam Long id) {
+    public String deleteTasklist(@RequestParam @Min(0) Long id) {
         tasklistService.delete(id);
         return "redirect:/tasklists";
     }

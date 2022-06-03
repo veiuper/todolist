@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Min;
 import java.util.Set;
 
 @Controller
@@ -30,21 +31,24 @@ public class TaskController {
     }
 
     @PostMapping("/tasklist/add")
-    public String addTask(@ModelAttribute TaskEntity taskEntity, @RequestParam Long tasklistId) {
+    public String addTask(@ModelAttribute TaskEntity taskEntity, @RequestParam @Min(0) Long tasklistId) {
         taskEntity.setTasklistEntity(tasklistService.getById(tasklistId));
         taskService.save(taskEntity);
         String redirectTo = "/tasklist/" + tasklistId + "/tasks";
         return "redirect:" + redirectTo;
     }
     @PostMapping("/tasklist/delete")
-    public String deleteTask(@RequestParam String tasklistId, @RequestParam Long taskId) {
+    public String deleteTask(@RequestParam @Min(0) Long tasklistId, @RequestParam @Min(0) Long taskId) {
         taskService.delete(taskId);
         String redirectTo = "/tasklist/" + tasklistId + "/tasks";
         return "redirect:" + redirectTo;
     }
 
     @PostMapping("/tasklist/switchTaskStatus")
-    public String reversTaskStatus(@RequestParam Long tasklistId, @RequestParam Long taskId) throws Exception {
+    public String reversTaskStatus(
+            @RequestParam @Min(0) Long tasklistId,
+            @RequestParam @Min(0) Long taskId
+    ) throws Exception {
         taskService.switchTaskStatus(taskId);
         String redirectTo = "/tasklist/" + tasklistId + "/tasks";
         return "redirect:" + redirectTo;
