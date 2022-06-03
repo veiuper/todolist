@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
 @Controller
+@Validated
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @AllArgsConstructor
 public class AdminController {
