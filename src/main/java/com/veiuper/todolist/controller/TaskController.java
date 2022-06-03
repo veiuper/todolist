@@ -22,7 +22,7 @@ public class TaskController {
     TasklistService tasklistService;
 
     @GetMapping("/tasklist/{tasklistId}/tasks")
-    public String getAll(Model model, @PathVariable Long tasklistId) {
+    public String getAll(Model model, @PathVariable @Min(0) Long tasklistId) {
         TasklistEntity tasklistEntity = tasklistService.getById(tasklistId);
         Set<TaskEntity> taskEntityList = taskService.findByTasklistEntityIdOrderByExecutedAscIdAsc(tasklistId);
         model.addAttribute("tasklist", tasklistEntity);
