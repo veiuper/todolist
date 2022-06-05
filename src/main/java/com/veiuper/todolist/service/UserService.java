@@ -96,7 +96,7 @@ public class UserService implements UserDetailsService {
 
     public List<User> userGtList(Long id) {
         return entityManager
-                .createQuery("SELECT u FROM usr u WHERE u.id > :paramId", User.class)
+                .createQuery("SELECT u FROM User u WHERE u.id > :paramId", User.class)
                 .setParameter("paramId", id)
                 .getResultList();
     }
