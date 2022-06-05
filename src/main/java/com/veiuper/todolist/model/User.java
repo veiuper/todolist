@@ -14,7 +14,8 @@ import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 
-@Entity(name = "usr")
+@Entity
+@Table(name = "usr")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
