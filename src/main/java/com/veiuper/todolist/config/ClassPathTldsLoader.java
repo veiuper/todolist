@@ -1,4 +1,4 @@
-package com.veiuper.todolist;
+package com.veiuper.todolist.config;
 
 import freemarker.ext.jsp.TaglibFactory;
 import lombok.AccessLevel;
