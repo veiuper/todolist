@@ -27,7 +27,7 @@
 <h4><a href="/">Главная</a></h4>
 <h4><a href="/tasklists">Мои списки задач</a></h4>
 <h3>Добавление задачи в список: ${tasklist.description}</h3>
-<form action="/tasklist/add" method="post">
+<form name="taskentity" action="/tasklist/add" method="post">
     <@security.csrfInput />
     <input type="hidden" name="tasklistId" value=${tasklist.id}>
     <table>

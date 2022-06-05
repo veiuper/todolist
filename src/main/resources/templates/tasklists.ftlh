@@ -26,7 +26,7 @@
 </form>
 <h4><a href="/">Главная</a></h4>
 <h3>Добавление списка задач</h3>
-<form action="/add" method="post">
+<form name="tasklistEntity" action="/add" method="post">
     <@security.csrfInput />
     <table>
         <tr>
