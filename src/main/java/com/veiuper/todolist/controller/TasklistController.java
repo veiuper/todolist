@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import java.security.Principal;
 import java.util.ArrayList;
@@ -43,7 +44,10 @@ public class TasklistController {
     }
 
     @PostMapping("/add")
-    public String addTasklist(@ModelAttribute TasklistEntity tasklistEntity, Principal principal) {
+    public String addTasklist(
+            @ModelAttribute(name = "tasklistEntity") @Valid TasklistEntity tasklistEntity,
+            Principal principal
+    ) {
         Optional<User> optionalUser = userService.findByEmail(principal.getName());
         if (optionalUser.isPresent()) {
             tasklistEntity.setUser(optionalUser.get());

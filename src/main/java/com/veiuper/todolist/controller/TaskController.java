@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import java.util.Set;
 
@@ -33,7 +34,10 @@ public class TaskController {
     }
 
     @PostMapping("/tasklist/add")
-    public String addTask(@ModelAttribute TaskEntity taskEntity, @RequestParam @Min(0) Long tasklistId) {
+    public String addTask(
+            @ModelAttribute(name = "taskentity") @Valid TaskEntity taskEntity,
+            @RequestParam @Min(0) Long tasklistId
+    ) {
         taskEntity.setTasklistEntity(tasklistService.getById(tasklistId));
         taskService.save(taskEntity);
         String redirectTo = "/tasklist/" + tasklistId + "/tasks";
