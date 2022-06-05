@@ -1,43 +1,52 @@
 package com.veiuper.todolist.controller;
 
-import com.veiuper.todolist.model.Task;
+import com.veiuper.todolist.model.TaskEntity;
+import com.veiuper.todolist.model.TasklistEntity;
 import com.veiuper.todolist.service.TaskService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.veiuper.todolist.service.TasklistService;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Set;
 
 @Controller
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@AllArgsConstructor
 public class TaskController {
+    TaskService taskService;
+    TasklistService tasklistService;
 
-    @Autowired
-    private TaskService taskService;
-
-    @GetMapping("/")
-    public String getAll(Model model) {
-        List<Task> taskList = taskService.getAll();
-        model.addAttribute("taskList", taskList);
-        model.addAttribute("taskSize", taskList.size());
-        return "index";
+    @GetMapping("/tasklist/{tasklistId}/tasks")
+    public String getAll(Model model, @PathVariable Long tasklistId) {
+        TasklistEntity tasklistEntity = tasklistService.getById(tasklistId);
+        Set<TaskEntity> taskEntityList = taskService.findByTasklistEntityIdOrderByExecutedAscIdAsc(tasklistId);
+        model.addAttribute("tasklist", tasklistEntity);
+        model.addAttribute("taskList", taskEntityList);
+        return "tasklist";
     }
 
-    @RequestMapping("/delete/{id}")
-    public String deleteTask(@PathVariable int id) {
-        taskService.delete(id);
-        return "redirect:/";
+    @PostMapping("/tasklist/add")
+    public String addTask(@ModelAttribute TaskEntity taskEntity, @RequestParam Long tasklistId) {
+        taskEntity.setTasklistEntity(tasklistService.getById(tasklistId));
+        taskService.save(taskEntity);
+        String redirectTo = "/tasklist/" + tasklistId + "/tasks";
+        return "redirect:" + redirectTo;
+    }
+    @PostMapping("/tasklist/delete")
+    public String deleteTask(@RequestParam String tasklistId, @RequestParam Long taskId) {
+        taskService.delete(taskId);
+        String redirectTo = "/tasklist/" + tasklistId + "/tasks";
+        return "redirect:" + redirectTo;
     }
 
-    @RequestMapping("/delete")
-    public String deleteAll() {
-        taskService.deleteAll();
-        return "redirect:/";
-    }
-
-    @PostMapping("/add")
-    public String addTask(@ModelAttribute Task task) {
-        taskService.save(task);
-        return "redirect:/";
+    @PostMapping("/tasklist/switchTaskStatus")
+    public String reversTaskStatus(@RequestParam Long tasklistId, @RequestParam Long taskId) throws Exception {
+        taskService.switchTaskStatus(taskId);
+        String redirectTo = "/tasklist/" + tasklistId + "/tasks";
+        return "redirect:" + redirectTo;
     }
 }
