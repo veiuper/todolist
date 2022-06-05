@@ -1,4 +1,4 @@
-package com.veiuper.todolist.model;
+package com.veiuper.todolist.model.entity;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -6,27 +6,27 @@ import lombok.experimental.FieldDefaults;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 @Entity
-@Table(name = "task")
+@Table(name = "tasklist")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class TaskEntity {
+public class TasklistEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, updatable = false)
     @Setter(AccessLevel.NONE)
     Long id;
-    @Column(nullable = false, columnDefinition = "boolean default false")
-    Boolean executed = false;
     @Column(columnDefinition = "varchar(255)")
     @NotBlank
     String description;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(nullable = false)
     @NotNull
-    TasklistEntity tasklistEntity;
+    User user;
+    @OneToMany(mappedBy = "tasklistEntity", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    Set<TaskEntity> taskEntities;
 }

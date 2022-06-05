@@ -1,7 +1,7 @@
 package com.veiuper.todolist.service;
 
-import com.veiuper.todolist.model.TasklistEntity;
-import com.veiuper.todolist.model.User;
+import com.veiuper.todolist.model.entity.TasklistEntity;
+import com.veiuper.todolist.model.entity.User;
 import com.veiuper.todolist.repository.TasklistRepository;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

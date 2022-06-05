@@ -1,6 +1,6 @@
 package com.veiuper.todolist.repository;
 
-import com.veiuper.todolist.model.TaskEntity;
+import com.veiuper.todolist.model.entity.TaskEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,6 +1,6 @@
-package com.veiuper.todolist.model;
+package com.veiuper.todolist.model.entity;
 
-import com.veiuper.todolist.UserRole;
+import com.veiuper.todolist.model.UserRole;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.Hibernate;

@@ -1,7 +1,7 @@
 package com.veiuper.todolist.controller;
 
-import com.veiuper.todolist.model.ConfirmationToken;
-import com.veiuper.todolist.model.User;
+import com.veiuper.todolist.model.entity.ConfirmationToken;
+import com.veiuper.todolist.model.entity.User;
 import com.veiuper.todolist.service.ConfirmationTokenService;
 import com.veiuper.todolist.service.UserService;
 import lombok.AccessLevel;

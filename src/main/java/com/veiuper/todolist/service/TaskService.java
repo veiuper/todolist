@@ -1,7 +1,7 @@
 package com.veiuper.todolist.service;
 
 import com.veiuper.todolist.exception.BusinessException;
-import com.veiuper.todolist.model.TaskEntity;
+import com.veiuper.todolist.model.entity.TaskEntity;
 import com.veiuper.todolist.repository.TaskRepository;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

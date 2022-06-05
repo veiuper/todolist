@@ -1,6 +1,6 @@
 package com.veiuper.todolist.repository;
 
-import com.veiuper.todolist.model.ConfirmationToken;
+import com.veiuper.todolist.model.entity.ConfirmationToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
