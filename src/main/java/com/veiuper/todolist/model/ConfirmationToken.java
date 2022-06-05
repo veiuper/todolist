@@ -7,7 +7,8 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.UUID;
 
-@Entity(name = "confirmation_token")
+@Entity
+@Table(name = "confirmation_token")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
