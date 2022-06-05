@@ -5,6 +5,7 @@ import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "task")
@@ -21,10 +22,11 @@ public class TaskEntity {
     Long id;
     @Column(nullable = false, columnDefinition = "boolean default false")
     Boolean executed = false;
-    @NotBlank(message="{task.description.invalid}")
     @Column(columnDefinition = "varchar(255)")
+    @NotBlank
     String description;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(nullable = false)
+    @NotNull
     TasklistEntity tasklistEntity;
 }

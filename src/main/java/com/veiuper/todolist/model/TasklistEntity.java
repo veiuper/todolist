@@ -5,6 +5,7 @@ import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @Entity
@@ -20,10 +21,11 @@ public class TasklistEntity {
     @Column(name = "id", nullable = false, updatable = false)
     @Setter(AccessLevel.NONE)
     Long id;
-    @NotBlank(message="{tasklist.description.invalid}")
     @Column(columnDefinition = "varchar(255)")
+    @NotBlank
     String description;
     @ManyToOne(fetch = FetchType.EAGER)
+    @NotNull
     User user;
     @OneToMany(mappedBy = "tasklistEntity", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     Set<TaskEntity> taskEntities;

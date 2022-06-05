@@ -9,6 +9,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
@@ -27,12 +30,18 @@ public class User implements UserDetails {
     @Column(name = "id", nullable = false)
     @Setter(AccessLevel.NONE)
     Long id;
+    @NotBlank
     String name;
+    @NotBlank
     String surname;
+    @Email
     String email;
+    @NotBlank
     String password;
     @Transient
+    @NotBlank
     String passwordConfirm;
+    @NotNull
     UserRole userRole = UserRole.ROLE_USER;
     Boolean locked = false;
     Boolean enabled = false;
