@@ -4,6 +4,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
 @Entity
@@ -26,5 +27,6 @@ public class TaskEntity {
     String description;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(nullable = false)
+    @Valid
     TasklistEntity tasklistEntity;
 }
