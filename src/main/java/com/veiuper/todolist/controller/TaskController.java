@@ -1,5 +1,6 @@
 package com.veiuper.todolist.controller;
 
+import com.veiuper.todolist.dto.Response;
 import com.veiuper.todolist.model.entity.TaskEntity;
 import com.veiuper.todolist.model.entity.TasklistEntity;
 import com.veiuper.todolist.service.TaskService;
@@ -7,11 +8,14 @@ import com.veiuper.todolist.service.TasklistService;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import java.util.Set;
@@ -58,5 +62,14 @@ public class TaskController {
         taskService.switchTaskStatus(taskId);
         String redirectTo = "/tasklist/" + tasklistId + "/tasks";
         return "redirect:" + redirectTo;
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<Response> handleConstraintViolationException(ConstraintViolationException e) {
+        return new ResponseEntity<>(
+                new Response("Not valid due to validation error: " + e.getMessage()),
+                HttpStatus.BAD_REQUEST
+        );
     }
 }
