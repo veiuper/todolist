@@ -1,6 +1,5 @@
 package com.veiuper.todolist.controller;
 
-import com.veiuper.todolist.dto.Response;
 import com.veiuper.todolist.model.entity.ConfirmationToken;
 import com.veiuper.todolist.model.entity.User;
 import com.veiuper.todolist.service.ConfirmationTokenService;
@@ -8,15 +7,15 @@ import com.veiuper.todolist.service.UserService;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.util.Optional;
@@ -61,14 +60,5 @@ public class RegistrationController {
         optionalConfirmationToken = confirmationTokenService.findConfirmationTokenByConfirmationToken(token);
         optionalConfirmationToken.ifPresent(userService::confirmUser);
         return "redirect:/login";
-    }
-
-    @ExceptionHandler(ConstraintViolationException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<Response> handleConstraintViolationException(ConstraintViolationException e) {
-        return new ResponseEntity<>(
-                new Response("Not valid due to validation error: " + e.getMessage()),
-                HttpStatus.BAD_REQUEST
-        );
     }
 }

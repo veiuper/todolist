@@ -1,18 +1,17 @@
 package com.veiuper.todolist.controller;
 
-import com.veiuper.todolist.dto.Response;
 import com.veiuper.todolist.service.UserService;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.validation.ConstraintViolationException;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
@@ -51,14 +50,5 @@ public class AdminController {
     public String  gtUser(@PathVariable("userId") @Min(0) Long userId, Model model) {
         model.addAttribute("allUsers", userService.userGtList(userId));
         return "admin";
-    }
-
-    @ExceptionHandler(ConstraintViolationException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<Response> handleConstraintViolationException(ConstraintViolationException e) {
-        return new ResponseEntity<>(
-                new Response("Not valid due to validation error: " + e.getMessage()),
-                HttpStatus.BAD_REQUEST
-        );
     }
 }
