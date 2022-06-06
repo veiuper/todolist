@@ -12,9 +12,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.validation.Valid;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.text.MessageFormat;
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +27,7 @@ import java.util.Optional;
 @Service
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @AllArgsConstructor
+@Validated
 public class UserService implements UserDetailsService {
     UserRepository userRepository;
     ConfirmationTokenService confirmationTokenService;
@@ -31,7 +37,7 @@ public class UserService implements UserDetailsService {
     EntityManager entityManager;
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(@Email String email) throws UsernameNotFoundException {
         final Optional<User> optionalUser = userRepository.findByEmail(email);
         if (optionalUser.isEmpty()) {
             throw new UsernameNotFoundException(
@@ -41,19 +47,19 @@ public class UserService implements UserDetailsService {
         return optionalUser.get();
     }
 
-    public Optional<User> findById(Long id) {
+    public Optional<@Valid User> findById(@Min(0) Long id) {
         return userRepository.findById(id);
     }
 
-    public Optional<User> findByEmail(String email) {
+    public Optional<@Valid User> findByEmail(@Email String email) {
         return userRepository.findByEmail(email);
     }
 
-    public List<User> findAll() {
+    public List<@Valid User> findAll() {
         return userRepository.findAll();
     }
 
-    public boolean save(User user) {
+    public boolean save(@Valid User user) {
         Optional<User> optionalUser = userRepository.findByEmail(user.getEmail());
         if (optionalUser.isPresent()) {
             return false;
@@ -64,7 +70,7 @@ public class UserService implements UserDetailsService {
         return true;
     }
 
-    public boolean delete(Long id) {
+    public boolean delete(@Min(0) Long id) {
         if (userRepository.findById(id).isPresent()) {
             userRepository.deleteById(id);
             return true;
@@ -72,7 +78,7 @@ public class UserService implements UserDetailsService {
         return false;
     }
 
-    public boolean switchLocked(Long id) {
+    public boolean switchLocked(@Min(0) Long id) {
         Optional<User> optionalUser = userRepository.findById(id);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
@@ -83,7 +89,7 @@ public class UserService implements UserDetailsService {
         return false;
     }
 
-    public boolean switchEnabled(Long id) {
+    public boolean switchEnabled(@Min(0) Long id) {
         Optional<User> optionalUser = userRepository.findById(id);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
@@ -94,14 +100,14 @@ public class UserService implements UserDetailsService {
         return false;
     }
 
-    public List<User> userGtList(Long id) {
+    public List<@Valid User> userGtList(@Min(0) Long id) {
         return entityManager
                 .createQuery("SELECT u FROM User u WHERE u.id > :paramId", User.class)
                 .setParameter("paramId", id)
                 .getResultList();
     }
 
-    public boolean registrationUser(User user) {
+    public boolean registrationUser(@Valid User user) {
         if (!save(user)) {
             return false;
         }
@@ -111,14 +117,14 @@ public class UserService implements UserDetailsService {
         return true;
     }
 
-    public void confirmUser(ConfirmationToken confirmationToken) {
+    public void confirmUser(@Valid ConfirmationToken confirmationToken) {
         final User user = confirmationToken.getUser();
         user.setEnabled(true);
         userRepository.save(user);
         confirmationTokenService.delete(confirmationToken);
     }
 
-    public void sendConfirmationMail(String userMail, String token) {
+    public void sendConfirmationMail(@Email String userMail, @NotBlank String token) {
         final SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(userMail);
         message.setSubject("Mail Confirmation Link");

@@ -7,21 +7,25 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import java.util.Optional;
 import java.util.Set;
 
 @Service
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @AllArgsConstructor
+@Validated
 public class TaskService {
     TaskRepository taskRepository;
 
-    public void save(TaskEntity taskEntity) {
+    public void save(@Valid TaskEntity taskEntity) {
         taskRepository.save(taskEntity);
     }
 
-    public void switchTaskStatus(Long id) throws BusinessException {
+    public void switchTaskStatus(@Min(0) Long id) throws BusinessException {
         Optional<TaskEntity> optionalTask = taskRepository.findById(id);
         if (optionalTask.isEmpty()) {
             throw new BusinessException(
@@ -34,11 +38,11 @@ public class TaskService {
         taskRepository.save(taskEntity);
     }
 
-    public void delete(Long id) {
+    public void delete(@Min(0) Long id) {
         taskRepository.deleteById(id);
     }
 
-    public Set<TaskEntity> findByTasklistEntityIdOrderByExecutedAscIdAsc(Long tasklistEntityId) {
+    public Set<@Valid TaskEntity> findByTasklistEntityIdOrderByExecutedAscIdAsc(@Min(0) Long tasklistEntityId) {
         return taskRepository.findByTasklistEntityIdOrderByExecutedAscIdAsc(tasklistEntityId);
     }
 }
