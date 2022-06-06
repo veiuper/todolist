@@ -37,7 +37,7 @@ public class UserService implements UserDetailsService {
     EntityManager entityManager;
 
     @Override
-    public UserDetails loadUserByUsername(@Email String email) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         final Optional<User> optionalUser = userRepository.findByEmail(email);
         if (optionalUser.isEmpty()) {
             throw new UsernameNotFoundException(
