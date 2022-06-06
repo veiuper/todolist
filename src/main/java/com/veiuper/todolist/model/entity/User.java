@@ -40,7 +40,6 @@ public class User implements UserDetails {
     @NotBlank
     String password;
     @Transient
-    @NotBlank
     String passwordConfirm;
     @NotNull
     UserRole userRole = UserRole.ROLE_USER;
