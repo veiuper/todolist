@@ -42,7 +42,7 @@ public class TaskService {
         taskRepository.deleteById(id);
     }
 
-    public Set<@Valid TaskEntity> findByTasklistEntityIdOrderByExecutedAscIdAsc(@Min(0) Long tasklistEntityId) {
+    public Set<TaskEntity> findByTasklistEntityIdOrderByExecutedAscIdAsc(@Min(0) Long tasklistEntityId) {
         return taskRepository.findByTasklistEntityIdOrderByExecutedAscIdAsc(tasklistEntityId);
     }
 }

@@ -20,11 +20,11 @@ import java.util.List;
 public class TasklistService {
     TasklistRepository tasklistRepository;
 
-    public List<@Valid TasklistEntity> getAll(@Valid User user) {
+    public List<TasklistEntity> getAll(@Valid User user) {
         return tasklistRepository.findAllByUser(user);
     }
 
-    public @Valid TasklistEntity getById(@Min(0) Long id) {
+    public TasklistEntity getById(@Min(0) Long id) {
         return tasklistRepository.getById(id);
     }
 

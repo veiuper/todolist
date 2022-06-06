@@ -47,15 +47,15 @@ public class UserService implements UserDetailsService {
         return optionalUser.get();
     }
 
-    public Optional<@Valid User> findById(@Min(0) Long id) {
+    public Optional<User> findById(@Min(0) Long id) {
         return userRepository.findById(id);
     }
 
-    public Optional<@Valid User> findByEmail(@Email String email) {
+    public Optional<User> findByEmail(@Email String email) {
         return userRepository.findByEmail(email);
     }
 
-    public List<@Valid User> findAll() {
+    public List<User> findAll() {
         return userRepository.findAll();
     }
 
@@ -100,7 +100,7 @@ public class UserService implements UserDetailsService {
         return false;
     }
 
-    public List<@Valid User> userGtList(@Min(0) Long id) {
+    public List<User> userGtList(@Min(0) Long id) {
         return entityManager
                 .createQuery("SELECT u FROM User u WHERE u.id > :paramId", User.class)
                 .setParameter("paramId", id)

@@ -27,7 +27,7 @@ public class ConfirmationTokenService {
         confirmationTokenRepository.delete(confirmationToken);
     }
 
-    public Optional<@Valid ConfirmationToken> findConfirmationTokenByConfirmationToken(@NotBlank String token) {
+    public Optional<ConfirmationToken> findConfirmationTokenByConfirmationToken(@NotBlank String token) {
         return confirmationTokenRepository.findConfirmationTokenByConfirmationToken(token);
     }
 }
