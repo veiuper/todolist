@@ -4,8 +4,8 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @Entity
@@ -25,8 +25,8 @@ public class TasklistEntity {
     @NotBlank
     String description;
     @ManyToOne(fetch = FetchType.EAGER)
-    @NotNull
+    @Valid
     User user;
     @OneToMany(mappedBy = "tasklistEntity", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    Set<TaskEntity> taskEntities;
+    Set<@Valid TaskEntity> taskEntities;
 }

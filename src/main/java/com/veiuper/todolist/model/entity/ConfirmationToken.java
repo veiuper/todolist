@@ -1,11 +1,11 @@
-package com.veiuper.todolist.model;
+package com.veiuper.todolist.model.entity;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import java.time.LocalDate;
 import java.util.UUID;
@@ -28,7 +28,7 @@ public class ConfirmationToken {
     LocalDate createdDate;
     @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(nullable = false)
-    @NotNull
+    @Valid
     User user;
 
     public ConfirmationToken(User user) {

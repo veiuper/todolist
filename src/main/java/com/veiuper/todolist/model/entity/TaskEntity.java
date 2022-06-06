@@ -4,8 +4,8 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "task")
@@ -27,6 +27,6 @@ public class TaskEntity {
     String description;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(nullable = false)
-    @NotNull
+    @Valid
     TasklistEntity tasklistEntity;
 }

@@ -9,6 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -46,7 +47,7 @@ public class User implements UserDetails {
     Boolean locked = false;
     Boolean enabled = false;
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    Set<TasklistEntity> tasklists;
+    Set<@Valid TasklistEntity> tasklists;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
