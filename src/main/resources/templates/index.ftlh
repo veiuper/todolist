@@ -1,54 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Todolist</title>
-    <link rel="stylesheet" type="text/css" href="/css/style.x63573.css"/>
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <style>
+        table.numbered-table {
+            counter-reset: rowNumber;
+        }
+        table.numbered-table tbody tr:not(.table-header) {
+            counter-increment: rowNumber;
+        }
+        table.numbered-table tr td:first-child::before {
+            content: counter(rowNumber);
+        }
+    </style>
 </head>
 <body>
 <h1>Todolist</h1>
-<h3>Add task to list</h3>
+<h3>Добавление задачи в список</h3>
 <form action="/add" method="post">
-    <table border="1px">
+    <table>
         <tr>
             <td>
-                <label>Priority</label>
-                <input type="number" name="priorityId">
+                <label>Описание</label>
+                <label>
+                    <input type="text" name="description">
+                </label>
             </td>
             <td>
-                <label>Description</label>
-                <input type="text" name="description">
+                <input type="submit" value="Добавить">
             </td>
-            <td>
-                <label>Date</label>
-                <input type="date" name="date">
-            </td>
-
-            <td>
-                <input type="submit" value="add task">
-            </td>
-
         </tr>
-
     </table>
 </form>
 <br>
-<h2>Task list(task count : ${taskSize})</h2>
-<table border="1px">
-    <tr>
-        <td>Id</td>
-        <td>Priority</td>
-        <td>Task description</td>
-        <td>Date</td>
-        <td>Delete from list</td>
+<#-- @ftlvariable name="taskSize" type="java.lang.Number" -->
+<h2>Список задач (количество : ${taskSize})</h2>
+<table class="numbered-table">
+    <tr class="table-header">
+        <th>№</th>
+        <th>Описание</th>
+        <th>Изменение статуса выполнения</th>
+        <th>Удаление</th>
     </tr>
     <#list taskList as task>
         <tr>
-            <td>${task.id}</td>
-            <td>${task.priorityId}</td>
-            <td>${task.description}</td>
-            <td>${task.date}</td>
-            <td><a href="${'/delete/'+task.id}">Delete</a></td>
+            <td></td>
+            <td <#if task.executed> style="text-decoration: line-through;"</#if>>${task.description}</td>
+            <td><a href="${'/switchTaskStatus/'+task.id}"><#if task.executed>Отменить выполнение<#else>Выполнить</#if></a></td>
+            <td><a href="${'/delete/'+task.id}">Удалить</a></td>
         </tr>
     </#list>
 </table>
