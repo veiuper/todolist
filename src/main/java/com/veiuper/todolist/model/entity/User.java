@@ -35,6 +35,7 @@ public class User implements UserDetails {
     String name;
     @NotBlank
     String surname;
+    @NotBlank
     @Email
     String email;
     @NotBlank
