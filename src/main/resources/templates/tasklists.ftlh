@@ -53,7 +53,7 @@
     <#list tasklistList as tasklist>
         <tr>
             <td></td>
-            <td><a href="${'/tasklist/'+tasklist.id+'/tasks'}">${tasklist.description}</a></td>
+            <td><a href="${'/tasklist/tasks?tasklistId=' + tasklist.id}">${tasklist.description}</a></td>
             <td>
                 <form action="/delete" method="post">
                     <@security.csrfInput />
