@@ -1,43 +1,62 @@
 package com.veiuper.todolist.controller;
 
-import com.veiuper.todolist.model.Task;
+import com.veiuper.todolist.model.entity.TaskEntity;
+import com.veiuper.todolist.model.entity.TasklistEntity;
 import com.veiuper.todolist.service.TaskService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.veiuper.todolist.service.TasklistService;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import java.util.Set;
 
 @Controller
+@Validated
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@AllArgsConstructor
 public class TaskController {
+    TaskService taskService;
+    TasklistService tasklistService;
 
-    @Autowired
-    private TaskService taskService;
-
-    @GetMapping("/")
-    public String getAll(Model model) {
-        List<Task> taskList = taskService.getAll();
-        model.addAttribute("taskList", taskList);
-        model.addAttribute("taskSize", taskList.size());
-        return "index";
+    @GetMapping("/tasklist/{tasklistId}/tasks")
+    public String getAll(Model model, @PathVariable @Min(0) Long tasklistId) {
+        TasklistEntity tasklistEntity = tasklistService.getById(tasklistId);
+        Set<TaskEntity> taskEntitySet = taskService.findByTasklistEntityIdOrderByExecutedAscIdAsc(tasklistId);
+        model.addAttribute("tasklist", tasklistEntity);
+        model.addAttribute("taskList", taskEntitySet);
+        return "tasklist";
     }
 
-    @RequestMapping("/delete/{id}")
-    public String deleteTask(@PathVariable int id) {
-        taskService.delete(id);
-        return "redirect:/";
+    @PostMapping("/tasklist/add")
+    public String addTask(
+            @ModelAttribute(name = "taskentity") @Valid TaskEntity taskEntity,
+            @RequestParam @Min(0) Long tasklistId
+    ) {
+        taskEntity.setTasklistEntity(tasklistService.getById(tasklistId));
+        taskService.save(taskEntity);
+        String redirectTo = "/tasklist/" + tasklistId + "/tasks";
+        return "redirect:" + redirectTo;
+    }
+    @PostMapping("/tasklist/delete")
+    public String deleteTask(@RequestParam @Min(0) Long tasklistId, @RequestParam @Min(0) Long taskId) {
+        taskService.delete(taskId);
+        String redirectTo = "/tasklist/" + tasklistId + "/tasks";
+        return "redirect:" + redirectTo;
     }
 
-    @RequestMapping("/delete")
-    public String deleteAll() {
-        taskService.deleteAll();
-        return "redirect:/";
-    }
-
-    @PostMapping("/add")
-    public String addTask(@ModelAttribute Task task) {
-        taskService.save(task);
-        return "redirect:/";
+    @PostMapping("/tasklist/switchTaskStatus")
+    public String reversTaskStatus(
+            @RequestParam @Min(0) Long tasklistId,
+            @RequestParam @Min(0) Long taskId
+    ) throws Exception {
+        taskService.switchTaskStatus(taskId);
+        String redirectTo = "/tasklist/" + tasklistId + "/tasks";
+        return "redirect:" + redirectTo;
     }
 }
