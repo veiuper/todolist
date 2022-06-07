@@ -51,7 +51,7 @@ public class UserService implements UserDetailsService {
         return userRepository.findById(id);
     }
 
-    public Optional<User> findByEmail(@Email String email) {
+    public Optional<User> findByEmail(@NotBlank @Email String email) {
         return userRepository.findByEmail(email);
     }
 
@@ -124,7 +124,7 @@ public class UserService implements UserDetailsService {
         confirmationTokenService.delete(confirmationToken);
     }
 
-    public void sendConfirmationMail(@Email String userMail, @NotBlank String token) {
+    public void sendConfirmationMail(@NotBlank @Email String userMail, @NotBlank String token) {
         final SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(userMail);
         message.setSubject("Mail Confirmation Link");
