@@ -21,7 +21,6 @@ import javax.validation.constraints.NotBlank;
 import java.util.Optional;
 
 @Controller
-@Validated
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @AllArgsConstructor
 public class RegistrationController {
