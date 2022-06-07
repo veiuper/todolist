@@ -7,6 +7,7 @@ import com.veiuper.todolist.service.UserService;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ import javax.validation.constraints.Min;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Controller
@@ -55,7 +57,11 @@ public class TasklistController {
     }
 
     @PostMapping("/delete")
-    public String deleteTasklist(@RequestParam @Min(0) Long id) {
+    public String deleteTasklist(@RequestParam @Min(0) Long id, Principal principal) {
+        TasklistEntity tasklistEntity = tasklistService.getById(id);
+        if (!Objects.equals(tasklistEntity.getUser().getEmail(), principal.getName())) {
+            throw new AccessDeniedException("Доступ запрещен.");
+        }
         tasklistService.delete(id);
         return "redirect:/tasklists";
     }
