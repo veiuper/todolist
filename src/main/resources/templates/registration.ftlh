@@ -28,6 +28,7 @@
         Email:<br>
         <@spring.formInput "user.email"/>
         <@spring.showErrors "<br>"/>
+        <#if emailError??><b>${emailError}</b></#if>
         <br><br>
         Пароль:<br>
         <@spring.formInput "user.password" "" "password"/>
