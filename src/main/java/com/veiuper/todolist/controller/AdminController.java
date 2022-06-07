@@ -1,5 +1,7 @@
 package com.veiuper.todolist.controller;
 
+import com.veiuper.todolist.exception.BusinessException;
+import com.veiuper.todolist.model.entity.User;
 import com.veiuper.todolist.service.UserService;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import java.security.Principal;
+import java.util.Optional;
 
 @Controller
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -30,16 +34,18 @@ public class AdminController {
     public String updateOrDeleteUser(
             @RequestParam @NotBlank String action,
             @RequestParam @Min(0) Long userId,
-            Model model
-    ) {
-        if (action.equals("delete")) {
-            userService.delete(userId);
+            Model model,
+            Principal principal
+    ) throws BusinessException {
+        Optional<User> optionalUser = userService.findByEmail(principal.getName());
+        if (optionalUser.isPresent() && userId.equals(optionalUser.get().getId())) {
+            throw new BusinessException("Пользователю запрещено менять данные своей учетной записи.");
         }
-        if (action.equals("switchLocked")) {
-            userService.switchLocked(userId);
-        }
-        if (action.equals("switchEnabled")) {
-            userService.switchEnabled(userId);
+        switch (action) {
+            case "delete" -> userService.delete(userId);
+            case "switchLocked" -> userService.switchLocked(userId);
+            case "switchEnabled" -> userService.switchEnabled(userId);
+            default -> throw new BusinessException("Операция " + action + " не поддерживается.");
         }
         return userList(model);
     }
