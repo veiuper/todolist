@@ -1,7 +1,8 @@
 package com.veiuper.todolist.service;
 
-import com.veiuper.todolist.dao.TasklistRepository;
 import com.veiuper.todolist.model.TasklistEntity;
+import com.veiuper.todolist.model.User;
+import com.veiuper.todolist.repository.TasklistRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,8 +15,8 @@ public class TasklistService {
         this.tasklistRepository = tasklistRepository;
     }
 
-    public List<TasklistEntity> getAll() {
-        return tasklistRepository.findAll();
+    public List<TasklistEntity> getAll(User user) {
+        return tasklistRepository.findAllByUser(user);
     }
 
     public TasklistEntity getById(Long id) {

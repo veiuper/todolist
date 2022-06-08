@@ -1,8 +1,8 @@
 package com.veiuper.todolist.service;
 
-import com.veiuper.todolist.dao.TaskRepository;
 import com.veiuper.todolist.exception.BusinessException;
 import com.veiuper.todolist.model.TaskEntity;
+import com.veiuper.todolist.repository.TaskRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Todolist</title>
-    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
     <style>
         table.numbered-table {
             counter-reset: rowNumber;
@@ -18,10 +18,9 @@
 </head>
 <body>
 <h1>Todolist</h1>
-<h4><a href="/tasklists">Назад</a></h4>
 <h4><a href="/logout">Выйти</a></h4>
-<h3>Добавление задачи в список: ${tasklist.description}</h3>
-<form action="/tasklist/${tasklist.id}/add" method="post">
+<h3>Добавление списка задач</h3>
+<form action="/add" method="post">
     <table>
         <tr>
             <td>
@@ -37,20 +36,18 @@
     </table>
 </form>
 <br>
-<h2>Список задач (количество : ${taskList?size})</h2>
+<h2>Список списков задач (количество : ${tasklistList?size})</h2>
 <table class="numbered-table">
     <tr class="table-header">
         <th>№</th>
         <th>Описание</th>
-        <th>Изменение статуса выполнения</th>
         <th>Удаление</th>
     </tr>
-    <#list taskList as task>
+    <#list tasklistList as tasklist>
         <tr>
             <td></td>
-            <td <#if task.executed> style="text-decoration: line-through;"</#if>>${task.description}</td>
-            <td><a href="${'/tasklist/'+tasklist.id+'/switchTaskStatus/'+task.id}"><#if task.executed>Отменить выполнение<#else>Выполнить</#if></a></td>
-            <td><a href="${'/tasklist/'+tasklist.id+'/delete/'+task.id}">Удалить</a></td>
+            <td><a href="${'/tasklist/'+tasklist.id+'/tasks'}">${tasklist.description}</a></td>
+            <td><a href="${'/delete/'+tasklist.id}">Удалить</a></td>
         </tr>
     </#list>
 </table>
