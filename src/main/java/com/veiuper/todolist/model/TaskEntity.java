@@ -12,7 +12,7 @@ public class TaskEntity {
     private Long id;
     @Column(nullable = false, columnDefinition = "boolean default false")
     private Boolean executed = false;
-    @NotBlank(message="{task.description.invalid}")
+    @NotBlank(message="{Необходимо заполнить описание задачи}")
     @Column(columnDefinition = "varchar(255)")
     private String description;
     @ManyToOne(fetch = FetchType.EAGER)
