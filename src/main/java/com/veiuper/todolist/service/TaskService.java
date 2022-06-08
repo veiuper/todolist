@@ -2,12 +2,11 @@ package com.veiuper.todolist.service;
 
 import com.veiuper.todolist.dao.TaskRepository;
 import com.veiuper.todolist.exception.BusinessException;
-import com.veiuper.todolist.model.Task;
-import org.springframework.data.domain.Sort;
+import com.veiuper.todolist.model.TaskEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class TaskService {
@@ -17,32 +16,28 @@ public class TaskService {
         this.taskRepository = taskRepository;
     }
 
-    public List<Task> getAll() {
-        return taskRepository.findAll(Sort.by(Sort.Order.asc("executed"), Sort.Order.asc("id")));
+    public void save(TaskEntity taskEntity) {
+        taskRepository.save(taskEntity);
     }
 
-    public Task save(Task task) {
-        return taskRepository.save(task);
-    }
-
-    public void switchTaskStatus(long id) throws BusinessException {
-        Optional<Task> optionalTask = taskRepository.findById(id);
+    public void switchTaskStatus(Long id) throws BusinessException {
+        Optional<TaskEntity> optionalTask = taskRepository.findById(id);
         if (optionalTask.isEmpty()) {
             throw new BusinessException(
                     "Не удалось изменить статус выполнения задачи." + System.lineSeparator() +
                     "Задача с id " + id + " не найдена."
             );
         }
-        Task task = optionalTask.get();
-        task.setExecuted(!task.getExecuted());
-        taskRepository.save(task);
+        TaskEntity taskEntity = optionalTask.get();
+        taskEntity.setExecuted(!taskEntity.getExecuted());
+        taskRepository.save(taskEntity);
     }
 
-    public void delete(long id) {
+    public void delete(Long id) {
         taskRepository.deleteById(id);
     }
 
-    public void deleteAll() {
-        taskRepository.deleteAll();
+    public Set<TaskEntity> findByTasklistEntityIdOrderByExecutedAscIdAsc(Long tasklistEntityId) {
+        return taskRepository.findByTasklistEntityIdOrderByExecutedAscIdAsc(tasklistEntityId);
     }
 }

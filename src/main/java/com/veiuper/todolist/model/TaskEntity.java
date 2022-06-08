@@ -4,9 +4,10 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-public class Task {
+@Table(name = "task")
+public class TaskEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, updatable = false)
     private Long id;
     @Column(nullable = false, columnDefinition = "boolean default false")
@@ -14,14 +15,23 @@ public class Task {
     @NotBlank(message="{Необходимо заполнить описание задачи}")
     @Column(columnDefinition = "varchar(255)")
     private String description;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(nullable = false)
+    private TasklistEntity tasklistEntity;
 
-    public Task() {
+    public TaskEntity() {
     }
 
-    public Task(Long id, Boolean executed, String description) {
+    public TaskEntity(
+            Long id,
+            Boolean executed,
+            @NotBlank(message = "{task.description.invalid}") String description,
+            TasklistEntity tasklistEntity
+    ) {
         this.id = id;
         this.executed = executed;
         this.description = description;
+        this.tasklistEntity = tasklistEntity;
     }
 
     public Long getId() {
@@ -42,5 +52,13 @@ public class Task {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public TasklistEntity getTasklist() {
+        return tasklistEntity;
+    }
+
+    public void setTasklist(TasklistEntity tasklistEntity) {
+        this.tasklistEntity = tasklistEntity;
     }
 }

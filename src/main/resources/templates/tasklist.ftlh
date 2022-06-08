@@ -18,8 +18,11 @@
 </head>
 <body>
 <h1>Todolist</h1>
-<h3>Добавление списка задач</h3>
-<form action="/add" method="post">
+<form action="/">
+    <button type="submit">Назад</button>
+</form>
+<h3>Добавление задачи в список: ${tasklist.description}</h3>
+<form action="/tasklist/${tasklist.id}/add" method="post">
     <table>
         <tr>
             <td>
@@ -35,19 +38,21 @@
     </table>
 </form>
 <br>
-<#-- @ftlvariable name="tasklistSize" type="java.lang.Number" -->
-<h2>Список списков задач (количество : ${tasklistSize})</h2>
-    <table class="numbered-table">
-        <tr class="table-header">
+<#-- @ftlvariable name="taskSize" type="java.lang.Number" -->
+<h2>Список задач (количество : ${taskSize})</h2>
+<table class="numbered-table">
+    <tr class="table-header">
         <th>№</th>
         <th>Описание</th>
+        <th>Изменение статуса выполнения</th>
         <th>Удаление</th>
     </tr>
-    <#list tasklistList as tasklist>
+    <#list taskList as task>
         <tr>
             <td></td>
-            <td><a href="${'/tasklist/'+tasklist.id+'/tasks'}">${tasklist.description}</a></td>
-            <td><a href="${'/delete/'+tasklist.id}">Удалить</a></td>
+            <td <#if task.executed> style="text-decoration: line-through;"</#if>>${task.description}</td>
+            <td><a href="${'/tasklist/'+tasklist.id+'/switchTaskStatus/'+task.id}"><#if task.executed>Отменить выполнение<#else>Выполнить</#if></a></td>
+            <td><a href="${'/tasklist/'+tasklist.id+'/delete/'+task.id}">Удалить</a></td>
         </tr>
     </#list>
 </table>
