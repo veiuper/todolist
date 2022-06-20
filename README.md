@@ -1,4 +1,6 @@
 # ToDoList
+![GitHub issues](https://img.shields.io/github/issues/veiuper/todolist)
+
 ## Description
 **Todolist** is a simple to-do list or task list. Write down all your important things in it, so as not to forget.
 ## Dependencies
