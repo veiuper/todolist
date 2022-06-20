@@ -14,4 +14,4 @@
   - [Spring Security Test](https://mvnrepository.com/artifact/org.springframework.security/spring-security-test)
   - [Spring Security Taglibs](https://mvnrepository.com/artifact/org.springframework.security/spring-security-taglibs)
   - [Tomcat JSP API](https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-jsp-api)
-  - [Spring Boot Starter Mail](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-mail)
+  
