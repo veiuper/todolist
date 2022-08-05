@@ -17,3 +17,10 @@
   - [Spring Security Taglibs](https://mvnrepository.com/artifact/org.springframework.security/spring-security-taglibs)
   - [Tomcat JSP API](https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-jsp-api)
   
+Реализовано:
+- Регистрация пользователя
+- Подтверждение адреса электронной почты
+- Авторизация пользователя
+- Добавление/удаление списков задач
+- Добавление/удаление задачи
+- Изменение статуса выполнения задачи
